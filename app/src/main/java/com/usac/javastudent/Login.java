@@ -84,8 +84,10 @@ public class Login extends AppCompatActivity {
                 Intent m = new Intent(Login.this,Principal.class);
                 Bundle infoUsuario = new Bundle();
                 infoUsuario.putString("usuario",c.getUsername());
+                Estatica.username_actual = c.getUsername();
                 m.putExtras(infoUsuario);
                 startActivity(m);
+
                 finish();
             }
         }
