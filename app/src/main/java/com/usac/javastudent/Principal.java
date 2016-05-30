@@ -35,6 +35,7 @@ import android.app.ActionBar.LayoutParams;
 import android.widget.Toast;
 
 import com.usac.clasesjava.Amigo;
+import com.usac.clasesjava.ConexionBD;
 import com.usac.clasesjava.Modulo;
 import com.usac.clasesjava.PagerAdapter;
 import com.usac.clasesjava.Tema;
@@ -48,6 +49,7 @@ public class Principal extends AppCompatActivity
 
     private ViewGroup layout;
     private ScrollView scrollView;
+    private Usuario currentUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +67,13 @@ public class Principal extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+
+        Intent recLog = getIntent();
+        Bundle b = recLog.getExtras();
+
+        String username_ = b.getString("usuario");
+        currentUser = userSesion(username_);
 
         /*INICIO*/
         TabLayout tabLayout = (TabLayout)findViewById(R.id.tab_layout);
@@ -104,16 +113,6 @@ public class Principal extends AppCompatActivity
 
     }
 
-    public List<Modulo> getModuloLocal(){
-
-        ArrayList<Modulo> modulos_ = new ArrayList<Modulo>();
-        modulos_.add(new Modulo(1,"Modulo 1", "Introduccion a Java", 5,0));
-        modulos_.add(new Modulo(1,"Modulo 2", "Conceptos basicos de Java", 5,0));
-        modulos_.add(new Modulo(1,"Modulo 3", "Programacion Orientada a Objetos", 5,0));
-
-        return modulos_;
-    }
-
     public List<Amigo> getAmigosLocal(){
         ArrayList<Amigo> amigo_ = new ArrayList<Amigo>();
         amigo_.add(new Amigo("Edwin", 100,1));
@@ -141,14 +140,6 @@ public class Principal extends AppCompatActivity
         List<Amigo> lstAmigos = getAmigosLocal();
         for(Amigo mod:lstAmigos){
             setAmigo(mod);
-        }
-    }
-
-
-    private void pintarModulos(){
-        List<Modulo> lstModulos = getModuloLocal();
-        for(Modulo mod:lstModulos){
-            setModulo(mod);
         }
     }
 
@@ -253,41 +244,6 @@ public class Principal extends AppCompatActivity
         layout.addView(relativeLayout);
     }
 
-    public void setModulo(Modulo mod){
-        LayoutInflater inflater = LayoutInflater.from(this);
-        int id = R.layout.modulos_layout;
-
-        RelativeLayout relativeLayout = (RelativeLayout) inflater.inflate(id, null, false);
-
-        ImageButton imgButton = (ImageButton)relativeLayout.findViewById(R.id.imageButton);
-        imgButton.setTag(mod);
-
-        imgButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Modulo aux = (Modulo)v.getTag();
-                Toast.makeText(getApplicationContext(), "Hola "+aux.getIdentificador(), Toast.LENGTH_LONG).show();
-                Intent i = new Intent(Principal.this,Prueba.class);
-                startActivity(i);
-            }
-        });
-
-        TextView textView_titulo = (TextView) relativeLayout.findViewById(R.id.amiUser);
-        textView_titulo.setText(mod.getNombre());
-
-        //TextView textView_desc = (TextView) relativeLayout.findViewById(R.id.modDesc);
-        //textView_desc.setText(mod.getDescripcion());
-
-        TextView textView_temas = (TextView) relativeLayout.findViewById(R.id.modTemas);
-        textView_temas.setText("0/"+mod.getTemas());
-
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-
-        params.topMargin = 15;
-        relativeLayout.setLayoutParams(params);
-        layout.addView(relativeLayout);
-    }
-
 
     @Override
     public void onBackPressed() {
@@ -317,11 +273,37 @@ public class Principal extends AppCompatActivity
         } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_send) {
-
+            ConexionBD con = new ConexionBD(this);
+            con.open();
+            if(currentUser != null)
+                con.updateUsuarioSesion(currentUser.getUsername(),0);
+            con.close();
+            //Intent intent = getIntent();
+            finish();
+            //startActivity(intent);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    public Usuario userSesion(String usernaname){
+        Usuario respuesta = new Usuario();
+        respuesta = null;
+
+        ConexionBD con = new ConexionBD(this);
+        con.open();
+
+        ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
+        usuarios =(ArrayList<Usuario>) con.getUsuarios();
+        for(Usuario c:usuarios){
+            if(c.getUsername().equals(usernaname)){
+                respuesta = c;
+            }
+        }
+        con.close();
+
+        return respuesta;
     }
 }
