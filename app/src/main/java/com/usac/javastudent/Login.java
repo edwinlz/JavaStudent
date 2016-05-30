@@ -126,7 +126,6 @@ public class Login extends AppCompatActivity {
         startActivity(i);
     }
 
-
     /**
      * Attempts to sign in or register the account specified by the login form.
      * If there are form errors (invalid email, missing fields, etc.), the
@@ -262,7 +261,6 @@ public class Login extends AppCompatActivity {
                 conexion.close();
 
                 Intent m = new Intent(Login.this,Principal.class);
-
                 Bundle infoUsuario = new Bundle();
                 infoUsuario.putString("usuario",usuarioActual.getUsername());
                 m.putExtras(infoUsuario);
@@ -292,8 +290,6 @@ public class Login extends AppCompatActivity {
     private SoapPrimitive resultsRequestSOAP=null;
     private String respuesta = null;
     private ProgressDialog dialogo;
-
-
 
     public Boolean invocarWS() {
         Boolean bandera = true;
@@ -325,7 +321,17 @@ public class Login extends AppCompatActivity {
         if(!respuesta.contains("Invalido, Credenciales")) {
             Intent m = new Intent(Login.this, Principal.class);
             Bundle infoUsuario = new Bundle();
-            infoUsuario.putString("usuario", usuarioActual.getUsername());
+            ConexionBD bda = new ConexionBD(this);
+            bda.open();
+            String[] valores = respuesta.split(",");
+            if(mCheckSesion.isChecked()) {
+                bda.insertUsuario(mUsernameView.getText().toString(), valores[1], mPasswordView.getText().toString(), valores[0], Integer.parseInt(valores[2]), Integer.parseInt(valores[3]),1,Integer.parseInt(valores[4]),Integer.parseInt(valores[5]),Integer.parseInt(valores[6]));
+            }
+            else{
+                bda.insertUsuario(mUsernameView.getText().toString(), valores[1], mPasswordView.getText().toString(), valores[0], Integer.parseInt(valores[2]), Integer.parseInt(valores[3]),0,Integer.parseInt(valores[4]),Integer.parseInt(valores[5]),Integer.parseInt(valores[6]));
+            }
+            bda.close();
+            infoUsuario.putString("usuario",mUsernameView.getText().toString());
             m.putExtras(infoUsuario);
             startActivity(m);
             finish();
