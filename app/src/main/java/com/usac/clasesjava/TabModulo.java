@@ -50,7 +50,6 @@ public class TabModulo extends Fragment {
         modulos_.add(new Modulo(1,"Modulo 3", "Programacion Orientada a Objetos", 5,0));
 
         return modulos_;
-
     }
 
     public void setModulo(Modulo mod){
