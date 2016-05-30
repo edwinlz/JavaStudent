@@ -45,10 +45,6 @@ public class Registro extends AppCompatActivity {
     }
 
     public void registar(View view){
-        registroLocal();
-    }
-
-    public void registroLocal(){
         boolean cancel = false;
         View focusView = null;
 
@@ -153,10 +149,10 @@ public class Registro extends AppCompatActivity {
         Boolean bandera = true;
         try{
             request = new SoapObject(NAMESPACE, METHOD_NAME);
-            request.addProperty("username",username_view.getText());
-            request.addProperty("nombre",nombre_view.getText());
-            request.addProperty("correo",correo_view.getText());
-            request.addProperty("password",pass_view.getText());
+            request.addProperty("username",username_view.getText().toString());
+            request.addProperty("nombre",nombre_view.getText().toString());
+            request.addProperty("correo",correo_view.getText().toString());
+            request.addProperty("password",pass_view.getText().toString());
             request.addProperty("experiencia",0);
             request.addProperty("nivel",0);
             request.addProperty("modulo",0);
@@ -169,6 +165,7 @@ public class Registro extends AppCompatActivity {
             transporte.call(SOAP_ACTION, envelope);
             resultsRequestSOAP = (SoapPrimitive) envelope.getResponse();
             respuesta = resultsRequestSOAP.toString();
+            Log.v("respuesta: ",respuesta);
         }
         catch (Exception e) {
             e.printStackTrace();
