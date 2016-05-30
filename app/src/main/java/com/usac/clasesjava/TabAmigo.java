@@ -42,6 +42,7 @@ public class TabAmigo extends Fragment {
                 Intent m = new Intent(getActivity(),Amigos.class);
                 m.putExtras(b);
                 startActivity(m);
+
             }
         });
 
