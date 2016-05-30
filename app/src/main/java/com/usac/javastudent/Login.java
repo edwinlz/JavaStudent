@@ -36,6 +36,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.usac.clasesjava.ConexionBD;
+import com.usac.clasesjava.Estatica;
 import com.usac.clasesjava.Usuario;
 
 import org.ksoap2.SoapEnvelope;
@@ -368,7 +369,9 @@ public class Login extends AppCompatActivity implements LoaderCallbacks<Cursor> 
             for(Usuario c:usuarios){
                 if(c.getUsername().equals(mUsername)){
                     usuarioActual = c;
+                    Estatica.username_actual = c.getUsername();
                     return c.getPassword().equals(mPassword);
+
                 }
             }
 
