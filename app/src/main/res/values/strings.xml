@@ -13,9 +13,7 @@
     <string name="error_invalid_password">La contraseña es demasiado corta</string>
     <string name="error_incorrect_password">La contraseña es incorrecta</string>
     <string name="error_field_required">Este campo es requerido</string>
-    <string name="permission_rationale">"Contacts permissions are needed for providing email
-        completions."
-    </string>
+
     <string name="title_activity_principal">Java Student</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
