@@ -38,7 +38,7 @@ public class TabAmigo extends Fragment {
             @Override
             public void onClick(View v) {
                 Bundle b = new Bundle();
-                b.putString("usuario","usario");
+                b.putString("usuario",Estatica.username_actual);
                 Intent m = new Intent(getActivity(),Amigos.class);
                 m.putExtras(b);
                 startActivity(m);

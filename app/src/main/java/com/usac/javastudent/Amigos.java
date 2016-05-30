@@ -47,11 +47,23 @@ public class Amigos extends AppCompatActivity {
     }
 
     public void buscarAmigo(View view){
+        /**
+        * obtener el nombre de usuario de amigo
+        * crear objeto AMIGO
+        * setear amigo setAmigo(amigo)
+        * para mostrarlo en pantalla
+        * */
         pintarAmigo();
     }
 
     public void pintarAmigo(){
+        layout.removeAllViews();
         setAmigo(getAmigo());
+    }
+
+    public void addAmigo(String username){
+        layout.removeAllViews();
+        Toast.makeText(this, "Se ha agregado a "+username, Toast.LENGTH_LONG).show();
     }
 
     public void setAmigo(Amigo am){
@@ -69,8 +81,8 @@ public class Amigos extends AppCompatActivity {
         imgButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Amigo elim = (Amigo)v.getTag();
-                preguntar(elim.getUsername());
+                Amigo add = (Amigo)v.getTag();
+                preguntar(add.getUsername());
             }
         });
 
@@ -110,11 +122,6 @@ public class Amigos extends AppCompatActivity {
         });
 
         alert.show();
-    }
-
-    public void addAmigo(String username){
-        layout.removeAllViews();
-        Toast.makeText(this, "Se ha agregado a "+username, Toast.LENGTH_LONG).show();
     }
 
     public Amigo getAmigo(){

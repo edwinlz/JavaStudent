@@ -94,7 +94,7 @@ public class Login extends AppCompatActivity implements LoaderCallbacks<Cursor> 
             if(c.getSesion()==1){
 
                 Intent m = new Intent(Login.this,Principal.class);
-
+                Estatica.username_actual = c.getUsername();
                 Bundle infoUsuario = new Bundle();
                 infoUsuario.putString("usuario",c.getUsername());
                 m.putExtras(infoUsuario);
@@ -391,7 +391,7 @@ public class Login extends AppCompatActivity implements LoaderCallbacks<Cursor> 
                 conexion.close();
 
                 Intent m = new Intent(Login.this,Principal.class);
-
+                Estatica.username_actual = usuarioActual.getUsername();
                 Bundle infoUsuario = new Bundle();
                 infoUsuario.putString("usuario",usuarioActual.getUsername());
                 m.putExtras(infoUsuario);
