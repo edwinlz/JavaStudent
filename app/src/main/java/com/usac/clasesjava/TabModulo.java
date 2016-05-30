@@ -29,9 +29,7 @@ public class TabModulo extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle saveInstanceState){
 
         View aux = inflater.inflate(R.layout.fragment_modulos, container, false);
-        //layout = aux.findViewById(R.id.contentFM);
         layout = (ViewGroup)aux.findViewById(R.id.contentFM);
-        int a = 10;
         pintarModulos();
 
         return aux;

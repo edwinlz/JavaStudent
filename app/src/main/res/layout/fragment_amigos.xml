@@ -2,19 +2,36 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <ScrollView
-        android:id="@+id/scrollViewFA"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:fillViewport="false"
-        android:scrollbarStyle="insideInset" >
-        <LinearLayout
-            android:id="@+id/contentFA"
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Agregar"
+            android:id="@+id/addButton"
+            android:background="@android:color/holo_green_light"
+            android:layout_margin="20dp"
+            android:typeface="monospace" />
+
+        <ScrollView
+            android:id="@+id/scrollViewFA"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
-        </LinearLayout>
-    </ScrollView>
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:fillViewport="false"
+            android:scrollbarStyle="insideInset">
+            <LinearLayout
+                android:id="@+id/contentFA"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+
 </RelativeLayout>

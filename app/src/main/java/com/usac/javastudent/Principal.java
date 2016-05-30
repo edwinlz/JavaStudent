@@ -129,20 +129,6 @@ public class Principal extends AppCompatActivity
         return amigo_;
     }
 
-    private void repintarAmigos(){
-        List<Amigo> lstAmigos = getAmigosLocal2();
-        for(Amigo mod:lstAmigos){
-            setAmigo(mod);
-        }
-    }
-
-    private void pintarAmigos(){
-        List<Amigo> lstAmigos = getAmigosLocal();
-        for(Amigo mod:lstAmigos){
-            setAmigo(mod);
-        }
-    }
-
     private void pintarContenido(){
         Tema tema = new Tema(1,1,"Variables","Uso de variables","<body style=\"text-align:justify;\"><h1>El lenguaje Java</h1><p> Como cualquier lenguaje de programación, el lenguaje <strong>Java</strong> tiene su propia estructura, reglas de sintaxis y paradigma de programación. El paradigma de programación del lenguaje Java se basa en el concepto de programación orientada a objetos (OOP) El lenguaje Java es un derivado del lenguaje C, por lo que sus reglas de sintaxis se parecen mucho</p></body>",0);
         setContenido(tema);
@@ -173,77 +159,6 @@ public class Principal extends AppCompatActivity
         relativeLayout.setLayoutParams(params);
         layout.addView(relativeLayout);
     }
-
-    public void elimarAmigo(String username){
-        layout.removeAllViews();
-        repintarAmigos();
-        Toast.makeText(getApplicationContext(), "Se ha eliminado", Toast.LENGTH_LONG).show();
-    }
-
-    public void preguntar(final String user){
-
-        AlertDialog.Builder alert = new AlertDialog.Builder(this);
-        alert.setTitle("¿Desea eliminar a "+user + " de sus amigos?");
-
-        alert.setPositiveButton("Si", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int whichButton) {
-                elimarAmigo(user);
-            }
-        });
-
-        alert.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int whichButton) {
-                //Toast.makeText(getApplicationContext(), "Cancelar", Toast.LENGTH_LONG).show();
-            }
-        });
-
-        alert.show();
-    }
-
-    public int getIdImage(int imagen){
-        switch (imagen){
-            case 1: return R.drawable.user_boy_3;
-            case 2: return R.drawable.user_man_1;
-            default: return R.drawable.user_boy_3;
-        }
-    }
-
-    public void setAmigo(Amigo am){
-        LayoutInflater inflater = LayoutInflater.from(this);
-        int id = R.layout.amigos_layout;
-
-        RelativeLayout relativeLayout = (RelativeLayout) inflater.inflate(id, null, false);
-
-        ImageView imgView = (ImageView) relativeLayout.findViewById(R.id.amiAvatar);
-        imgView.setImageResource(getIdImage(am.getAvatar()));
-
-
-        ImageButton imgButton = (ImageButton)relativeLayout.findViewById(R.id.amiBoton);
-
-        imgButton.setTag(am);
-
-        imgButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Amigo elim = (Amigo)v.getTag();
-                preguntar(elim.getUsername());
-            }
-        });
-
-
-        TextView textView_user = (TextView) relativeLayout.findViewById(R.id.amiUser);
-        textView_user.setText(am.getUsername());
-
-        TextView textView_exp = (TextView) relativeLayout.findViewById(R.id.amiExp);
-        textView_exp.setText(""+am.getExperiencia());
-
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-
-        params.topMargin = 15;
-        relativeLayout.setLayoutParams(params);
-        layout.addView(relativeLayout);
-    }
-
 
     @Override
     public void onBackPressed() {
