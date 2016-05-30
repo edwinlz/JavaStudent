@@ -95,28 +95,30 @@ public class Registro extends AppCompatActivity {
         if(cancel){
             focusView.requestFocus();
         }else{
-
             /*
             * conectar con web service/ verifica si esta o no
             * Si se guarda en ws se guarda local
             * */
             new CallRegistro().execute();
-            if(!respuesta.contains("ya fue registrado")) {
-                //conectar con base de datos local
-                ConexionBD bd = new ConexionBD(this);
-                bd.open();
-                if (bd.getUsuario(username) != null) {
-                    /*El usuario ya esta registrado local*/
-
-                } else {
-                /*El usario se guardara localmente*/
-                    bd.insertUsuario(username, email, password, name, 0, 0, 0, 1, 1, 1);
-                }
-                bd.close(); //cerrar conexion bd
-                finish();
-            }
         }
+    }
 
+    public void guardarUsuarioBD(String respuesta){
+        if(!respuesta.contains("ya fue registrado")) {
+            String email = correo_view.getText().toString();
+            String name = nombre_view.getText().toString();
+            String password = pass_view.getText().toString();
+            String username = username_view.getText().toString();
+            //conectar con base de datos local
+            ConexionBD bd = new ConexionBD(this);
+            bd.open();
+            if (bd.getUsuario(username) == null) {
+                /*El usuario se guardara localmente*/
+                bd.insertUsuario(username, email, password, name, 0, 0, 0, 1, 1, 1);//cambiar por el numero de imagen que se selecciono
+            }
+            bd.close(); //cerrar conexion bd
+            finish();
+        }
     }
 
     private boolean isValidEmail(String target) {
@@ -155,8 +157,8 @@ public class Registro extends AppCompatActivity {
             request.addProperty("password",pass_view.getText().toString());
             request.addProperty("experiencia",0);
             request.addProperty("nivel",0);
-            request.addProperty("modulo",0);
-            request.addProperty("tema",0);
+            request.addProperty("modulo",1);
+            request.addProperty("tema",1);
             request.addProperty("imagen",1);//cambiar por el numero de imagen que se selecciono
             envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
             envelope.dotNet = true;
@@ -179,6 +181,7 @@ public class Registro extends AppCompatActivity {
         Toast toast = Toast.makeText(getApplicationContext(),respuesta, Toast.LENGTH_LONG);
         toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
         toast.show();
+        guardarUsuarioBD(respuesta);
     }
 
     class CallRegistro extends AsyncTask<String,String,String> {
