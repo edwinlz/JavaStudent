@@ -69,6 +69,7 @@ public class Principal extends AppCompatActivity
         //pintarModulos();
         pintarAmigos();
         //pintarContenido();
+
     }
 
     public List<Modulo> getModuloLocal(){
