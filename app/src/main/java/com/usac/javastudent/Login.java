@@ -3,6 +3,7 @@ package com.usac.javastudent;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
@@ -20,6 +21,8 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.text.TextUtils;
+import android.util.Log;
+import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -30,10 +33,18 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.usac.clasesjava.ConexionBD;
 import com.usac.clasesjava.Usuario;
 
+import org.ksoap2.SoapEnvelope;
+import org.ksoap2.serialization.SoapObject;
+import org.ksoap2.serialization.SoapPrimitive;
+import org.ksoap2.serialization.SoapSerializationEnvelope;
+import org.ksoap2.transport.HttpTransportSE;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -403,6 +414,81 @@ public class Login extends AppCompatActivity implements LoaderCallbacks<Cursor> 
         protected void onCancelled() {
             mAuthTask = null;
             showProgress(false);
+        }
+    }
+
+
+    private static final String NAMESPACE = "http://tempuri.org/";
+    private static final String URL="http://felipeantonio.somee.com/ServicioJavaStudent.asmx?WSDL";
+    private static final String METHOD_NAME = "validarLogeo";
+    private static final String SOAP_ACTION ="http://tempuri.org/validarLogeo";
+    private SoapObject request=null;
+    private SoapSerializationEnvelope envelope=null;
+    private SoapPrimitive resultsRequestSOAP=null;
+    private String respuesta = null;
+    private ProgressDialog dialogo;
+
+    private void iniciarSesion(View v) {
+        new CallValidarLogeo().execute();
+    }
+
+    public Boolean invocarWS() {
+        Boolean bandera = true;
+        try{
+            request = new SoapObject(NAMESPACE, METHOD_NAME);
+            request.addProperty("username",mUsernameView.getText());
+            request.addProperty("password",mPasswordView.getText());
+            envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
+            envelope.dotNet = true;
+            envelope.setOutputSoapObject(request);
+            HttpTransportSE transporte = new HttpTransportSE(URL);
+            transporte.call(SOAP_ACTION, envelope);
+            resultsRequestSOAP = (SoapPrimitive) envelope.getResponse();
+            respuesta = resultsRequestSOAP.toString();
+            Log.e("Valor del response: ", resultsRequestSOAP.toString());
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            Log.v("Error", "Error exception: "+e.toString());
+            bandera = false;
+        }
+        return bandera;
+    }
+
+    private void mostrarRespuesta(String respuesta) {
+        Toast toast = Toast.makeText(getApplicationContext(),respuesta, Toast.LENGTH_LONG);
+        toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+        toast.show();
+    }
+
+    class CallValidarLogeo extends AsyncTask<String,String,String> {
+        @Override
+        protected void onPreExecute(){
+            super.onPreExecute();
+            dialogo = new ProgressDialog(Login.this);
+            dialogo.setMessage("Procesando solicitud...");
+            dialogo.setIndeterminate(false);
+            dialogo.setCancelable(false);
+            dialogo.show();
+        }
+
+        @Override
+        protected String doInBackground(String... params) {
+            if(invocarWS()){
+                return "ok";
+            }
+            else{
+                return "error";
+            }
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            //super.onPostExecute(s);
+            dialogo.dismiss();
+            if(result.contains("ok")){
+                mostrarRespuesta(respuesta);
+            }
         }
     }
 }
