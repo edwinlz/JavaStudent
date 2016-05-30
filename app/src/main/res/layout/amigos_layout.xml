@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="15dp">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="8dp">
+
+        <ImageView
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:id="@+id/amiAvatar"
+            android:src="@drawable/user_boy_3" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/white">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/white"
+                android:padding="8dp"
+                android:layout_gravity="left|center_vertical"
+                android:layout_centerVertical="true">
+
+                <TextView
+                    android:id="@+id/amiUser"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Usuario"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="@android:color/black"
+                    android:layout_alignWithParentIfMissing="false"
+                    android:layout_below="@+id/imageButton"
+                    android:layout_centerHorizontal="true"
+                    android:layout_gravity="left"
+                    android:typeface="monospace" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="10/10 "
+                    android:id="@+id/amiExp"
+                    android:layout_below="@+id/amiUser"
+                    android:layout_alignRight="@+id/imageButton"
+                    android:layout_alignEnd="@+id/imageButton"
+                    android:layout_gravity="left"
+                    android:typeface="monospace" />
+
+            </LinearLayout>
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/amiBoton"
+                android:layout_gravity="center_vertical|right"
+                android:src="@android:drawable/ic_menu_close_clear_cancel"
+                android:background="@android:color/transparent"
+                android:layout_alignParentRight="true" />
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>

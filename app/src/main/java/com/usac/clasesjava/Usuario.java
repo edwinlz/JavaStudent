@@ -15,8 +15,9 @@ public class Usuario {
     private int sesion;
     private int modulo;
     private int tema;
+    private int imagen;
 
-    public Usuario(int id, String username, String email, String password, String nombre, int experiencia, int nivel, int sesion, int modulo, int tema) {
+    public Usuario(int id, String username, String email, String password, String nombre, int experiencia, int nivel, int sesion, int modulo, int tema, int imagen) {
         this.id = id;
         this.username = username;
         this.email = email;
@@ -27,6 +28,7 @@ public class Usuario {
         this.sesion = sesion;
         this.modulo = modulo;
         this.tema = tema;
+        this.imagen = imagen;
     }
 
     public Usuario(){
@@ -111,5 +113,13 @@ public class Usuario {
 
     public void setTema(int temaActual) {
         this.tema= temaActual;
+    }
+
+    public int getImagen() {
+        return imagen;
+    }
+
+    public void setImagen(int imagen) {
+        this.imagen= imagen;
     }
 }
