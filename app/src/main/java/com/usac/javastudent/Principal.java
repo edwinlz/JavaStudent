@@ -136,7 +136,7 @@ public class Principal extends AppCompatActivity
             startActivity(m);
 
         } else if (id == R.id.nav_slideshow) {
-
+            Estatica.datos.setearDatos("felipe",100,1,1,1,this);
         } else if (id == R.id.nav_manage) {
 
         } else if (id == R.id.nav_share) {
