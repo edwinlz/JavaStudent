@@ -36,6 +36,7 @@ import android.widget.Toast;
 
 import com.usac.clasesjava.Amigo;
 import com.usac.clasesjava.ConexionBD;
+import com.usac.clasesjava.Estatica;
 import com.usac.clasesjava.Modulo;
 import com.usac.clasesjava.PagerAdapter;
 import com.usac.clasesjava.Tema;
@@ -178,7 +179,11 @@ public class Principal extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_camera) {
-            // Handle the camera action
+            Intent m = new Intent(Principal.this, Amigos.class);
+            Bundle infoUsuario = new Bundle();
+            infoUsuario.putString("usuario", Estatica.username_actual);
+            m.putExtras(infoUsuario);
+            startActivity(m);
         } else if (id == R.id.nav_gallery) {
 
         } else if (id == R.id.nav_slideshow) {

@@ -93,7 +93,7 @@ public class Amigos extends AppCompatActivity {
         ArrayList<Amigo> amigos = new ArrayList<Amigo>();
         Amigo amigo = null;
         for(int i=0;i<datos.length;i++){
-            if(i%2!=0){
+            if(i%2==0){
                 amigo = new Amigo();
                 amigo.setUsername(datos[i]);
             }
@@ -153,13 +153,18 @@ public class Amigos extends AppCompatActivity {
 
 
 
+    private void respuestaSolicitudAmistad(String respuesta) {
+        Toast toast = Toast.makeText(getApplicationContext(), respuesta, Toast.LENGTH_LONG);
+        toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+        toast.show();
+    }
+
     public void addAmigo(String username){
         layout.removeAllViews();
-        Toast.makeText(this, "Se ha agregado a "+username, Toast.LENGTH_LONG).show();
+        new CallRegistrarAmistad(username).execute();
     }
 
     public void preguntar(final String user){
-
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
         alert.setTitle("¿Desea agregar a "+user + " a sus amigos?");
 
@@ -252,15 +257,6 @@ public class Amigos extends AppCompatActivity {
         return bandera;
     }
 
-
-
-    private void mostrarRespuesta(String respuesta) {
-        Toast toast = Toast.makeText(getApplicationContext(), respuesta, Toast.LENGTH_LONG);
-        toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
-        toast.show();
-    }
-
-
     class CallGetFiltro extends AsyncTask<String,String,String> {
         @Override
         protected void onPreExecute(){
@@ -293,15 +289,12 @@ public class Amigos extends AppCompatActivity {
     }
 
     class CallRegistrarAmistad extends AsyncTask<String,String,String> {
-        private String usernameDueno;
         private String usernameAmistad;
 
-        public void setUsernameDueno(String usernameDueno){
-            this.usernameDueno = usernameDueno;
-        }
-        public void setUsernameAmistad(String usernameAmistad){
+        public CallRegistrarAmistad(String usernameAmistad){
             this.usernameAmistad = usernameAmistad;
         }
+
         @Override
         protected void onPreExecute(){
             super.onPreExecute();
@@ -314,7 +307,7 @@ public class Amigos extends AppCompatActivity {
 
         @Override
         protected String doInBackground(String... params) {
-            if(invocarWSRegistrarAmistad(usernameDueno, usernameAmistad)){
+            if(invocarWSRegistrarAmistad(currentUser.getUsername(),usernameAmistad)){
                 return "ok";
             }
             else{
@@ -327,7 +320,7 @@ public class Amigos extends AppCompatActivity {
             //super.onPostExecute(s);
             dialogo.dismiss();
             if(result.contains("ok")){
-                mostrarRespuesta(respuesta);
+                respuestaSolicitudAmistad(respuesta);
             }
         }
     }

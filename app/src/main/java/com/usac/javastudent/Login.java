@@ -234,8 +234,6 @@ public class Login extends AppCompatActivity {
                 startActivity(m);
                 finish();
             } else {
-                mPasswordView.setError("Credenciales locales invalidas");
-                mPasswordView.requestFocus();
                 new CallValidarLogeo().execute();
             }
         }
@@ -303,8 +301,10 @@ public class Login extends AppCompatActivity {
         }
         else{
             Toast toast = Toast.makeText(getApplicationContext(),respuesta, Toast.LENGTH_LONG);
-            toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+           //toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
             toast.show();
+            mPasswordView.setError("Credenciales locales invalidas");
+            mPasswordView.requestFocus();
         }
     }
 
