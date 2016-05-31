@@ -105,61 +105,8 @@ public class Principal extends AppCompatActivity
         });
         /*FIN*/
 
-        //layout = (ViewGroup)findViewById(R.id.content);
-        //scrollView = (ScrollView) findViewById(R.id.scrollView);
-
-        //pintarModulos();
-        //pintarAmigos();
-        //pintarContenido();
-
     }
 
-    public List<Amigo> getAmigosLocal(){
-        ArrayList<Amigo> amigo_ = new ArrayList<Amigo>();
-        amigo_.add(new Amigo("Edwin", 100,1));
-        amigo_.add(new Amigo("Raul", 1000,2));
-        amigo_.add(new Amigo("Rony", 10000,1));
-        amigo_.add(new Amigo("Crazy", 100000,2));
-        return amigo_;
-    }
-
-    public List<Amigo> getAmigosLocal2(){
-        ArrayList<Amigo> amigo_ = new ArrayList<Amigo>();
-        amigo_.add(new Amigo("Edwin", 100,1));
-        amigo_.add(new Amigo("Raul", 1000,2));
-        return amigo_;
-    }
-
-    private void pintarContenido(){
-        Tema tema = new Tema(1,1,"Variables","Uso de variables","<body style=\"text-align:justify;\"><h1>El lenguaje Java</h1><p> Como cualquier lenguaje de programación, el lenguaje <strong>Java</strong> tiene su propia estructura, reglas de sintaxis y paradigma de programación. El paradigma de programación del lenguaje Java se basa en el concepto de programación orientada a objetos (OOP) El lenguaje Java es un derivado del lenguaje C, por lo que sus reglas de sintaxis se parecen mucho</p></body>",0);
-        setContenido(tema);
-    }
-
-    public void setContenido(Tema tema){
-        LayoutInflater inflater = LayoutInflater.from(this);
-        int id = R.layout.contenido_layout;
-
-        RelativeLayout relativeLayout = (RelativeLayout) inflater.inflate(id, null, false);
-
-        ImageView imgView = (ImageView) relativeLayout.findViewById(R.id.conteAvatar);
-        imgView.setImageResource(R.drawable.libro);
-
-        TextView textView_titulo = (TextView) relativeLayout.findViewById(R.id.conteTitulo);
-        textView_titulo.setText(tema.getNombre());
-
-        TextView textView_desc = (TextView) relativeLayout.findViewById(R.id.conteDesc);
-        textView_desc.setText(tema.getDescripcion());
-
-        TextView textView_texto = (TextView) relativeLayout.findViewById(R.id.conteTexto);
-
-        textView_texto.setText(Html.fromHtml(tema.getContenido(), null, null));
-
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-
-        params.topMargin = 15;
-        relativeLayout.setLayoutParams(params);
-        layout.addView(relativeLayout);
-    }
 
     @Override
     public void onBackPressed() {

@@ -35,20 +35,12 @@ public class TabModulo extends Fragment {
     }
 
     private void pintarModulos(){
-        List<Modulo> lstModulos = getModuloLocal();
+        ConexionBD conection = new ConexionBD(getActivity());
+        conection.open();
+        List<Modulo> lstModulos = conection.getModulos();
         for(Modulo mod:lstModulos){
             setModulo(mod);
         }
-    }
-
-    public List<Modulo> getModuloLocal(){
-
-        ArrayList<Modulo> modulos_ = new ArrayList<Modulo>();
-        modulos_.add(new Modulo(1,"Modulo 1", "Introduccion a Java", 5,0));
-        modulos_.add(new Modulo(1,"Modulo 2", "Conceptos basicos de Java", 5,0));
-        modulos_.add(new Modulo(1,"Modulo 3", "Programacion Orientada a Objetos", 5,0));
-
-        return modulos_;
     }
 
     public void setModulo(Modulo mod){
@@ -65,7 +57,10 @@ public class TabModulo extends Fragment {
             public void onClick(View v) {
                 Modulo aux = (Modulo)v.getTag();
                 Toast.makeText(getActivity(),"Hola",Toast.LENGTH_SHORT).show();
+                Bundle datos = new Bundle();
+                datos.putInt("modulo",aux.getIdentificador());
                 Intent intent = new Intent(getActivity(), Temas.class);
+                intent.putExtras(datos);
                 startActivity(intent);
             }
         });

@@ -23,7 +23,14 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.usac.clasesjava.ConexionBD;
+import com.usac.clasesjava.Modulo;
 import com.usac.clasesjava.Tema;
+
+import org.w3c.dom.Text;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Temas extends AppCompatActivity {
 
@@ -41,7 +48,8 @@ public class Temas extends AppCompatActivity {
      * The {@link ViewPager} that will host the section contents.
      */
     private ViewPager mViewPager;
-
+    public Modulo currentModulo;
+    public static ArrayList<Tema> lstTemas;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,14 +59,53 @@ public class Temas extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        // Create the adapter that will return a fragment for each of the three
-        // primary sections of the activity.
+
+        Bundle recibido = getIntent().getExtras();
+        int modulo_data = recibido.getInt("modulo");
+        currentModulo = getModulo(modulo_data);
+        lstTemas = getTemas(currentModulo.getIdentificador());
+
+        TextView text_lstMod = (TextView)findViewById(R.id.lstemaMod);
+        text_lstMod.setText(currentModulo.getNombre());
+
+        TextView text_lstModDesc = (TextView)findViewById(R.id.lstModDesc);
+        text_lstModDesc.setText(currentModulo.getDescripcion());
+
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
+
+
+    }
+
+    private Modulo getModulo(int id){
+        Modulo aux = new Modulo();
+        ConexionBD bd = new ConexionBD(this);
+        bd.open();
+        aux = bd.getModulo(id);
+        bd.close();
+        return aux;
+    }
+
+    private ArrayList<Tema> getTemas(int modulo){
+        ConexionBD bd  = new ConexionBD(this);
+        ArrayList<Tema> temas = new ArrayList<Tema>();
+        temas =(ArrayList<Tema>) bd.getTemas(modulo);
+        bd.close();
+        return temas;
+    }
+
+    public static Tema getTema(int id){
+        Tema aux = new Tema();
+        for(Tema t:lstTemas){
+            if(t.getIdenficador() == id){
+                aux= t;
+            }
+        }
+        return aux;
     }
 
 
@@ -94,7 +141,6 @@ public class Temas extends AppCompatActivity {
          */
         private static final String ARG_SECTION_NUMBER = "section_number";
         private ViewGroup layout;
-        private Tema currentTema;
 
         public PlaceholderFragment() {
 
@@ -104,7 +150,7 @@ public class Temas extends AppCompatActivity {
          * Returns a new instance of this fragment for the given section
          * number.
          */
-        public static PlaceholderFragment newInstance(int numeroTema, int modulo) {
+        public static PlaceholderFragment newInstance(int numeroTema) {
             PlaceholderFragment fragment = new PlaceholderFragment();
             Bundle args = new Bundle();
             args.putInt(ARG_SECTION_NUMBER, numeroTema);
@@ -119,20 +165,11 @@ public class Temas extends AppCompatActivity {
             layout = (ViewGroup)rootView.findViewById(R.id.temaNuevo);
 
             int ntema = getArguments().getInt(ARG_SECTION_NUMBER);
+
             setTema(getTema(ntema));
-            //TextView textView = (TextView) rootView.findViewById(R.id.section_label);
-            //textView.setText(getString(R.string.section_format, ntema));
+
 
             return rootView;
-        }
-
-        public Tema getTema(int tema){
-            switch (tema){
-                case 1: return new Tema(1,1,"Prueba 1","Tema de prueba","<body>Tema<body>",0);
-                case 2: return new Tema(2,1,"Prueba 2","Tema de prueba","<body>Tema<body>",10);
-                case 3: return new Tema(3,1,"Prueba 3","Tema de prueba","<body>Tema<body>",20);
-                default: return new Tema(4,1,"Prueba 4","Tema de prueba","<body>Tema<body>",30);
-            }
         }
 
         public void setTema(Tema tema){
@@ -165,18 +202,18 @@ public class Temas extends AppCompatActivity {
         public SectionsPagerAdapter(FragmentManager fm) {
             super(fm);
         }
-            int modulo = 1;
+
         @Override
         public Fragment getItem(int position) {
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
-            return PlaceholderFragment.newInstance(position + 1, modulo);
+            return PlaceholderFragment.newInstance(position + 1);
         }
 
         @Override
         public int getCount() {
             // Show 3 total pages.
-            return 3;
+            return currentModulo.getTemas();
         }
 
         @Override
@@ -188,6 +225,12 @@ public class Temas extends AppCompatActivity {
                     return "SECTION 2";
                 case 2:
                     return "SECTION 3";
+                case 3:
+                    return "SECTION 4";
+                case 4:
+                    return "SECTION 5";
+                case 5:
+                    return "SECTION 6";
             }
             return null;
         }
