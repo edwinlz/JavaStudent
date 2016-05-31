@@ -62,6 +62,7 @@ public class Temas extends AppCompatActivity {
 
         Bundle recibido = getIntent().getExtras();
         int modulo_data = recibido.getInt("modulo");
+
         currentModulo = getModulo(modulo_data);
         lstTemas = getTemas(currentModulo.getIdentificador());
 
@@ -92,6 +93,7 @@ public class Temas extends AppCompatActivity {
 
     private ArrayList<Tema> getTemas(int modulo){
         ConexionBD bd  = new ConexionBD(this);
+        bd.open();
         ArrayList<Tema> temas = new ArrayList<Tema>();
         temas =(ArrayList<Tema>) bd.getTemas(modulo);
         bd.close();
