@@ -66,7 +66,7 @@ public class TabModulo extends Fragment {
             public void onClick(View v) {
                 Modulo aux = (Modulo)v.getTag();
                 Toast.makeText(getActivity(),"Hola",Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(getActivity(), Prueba.class);
+                Intent intent = new Intent(getActivity(), Temas.class);
                 startActivity(intent);
             }
         });
