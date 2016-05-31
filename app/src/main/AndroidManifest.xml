@@ -38,7 +38,8 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.usac.javastudent.Principal" />
         </activity>
-        <activity android:name=".Amigos"></activity>
+        <activity android:name=".Amigos" />
+        <activity android:name=".Contenido"></activity>
     </application>
 
 </manifest>
