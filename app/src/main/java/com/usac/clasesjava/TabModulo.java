@@ -31,7 +31,6 @@ public class TabModulo extends Fragment {
         View aux = inflater.inflate(R.layout.fragment_modulos, container, false);
         layout = (ViewGroup)aux.findViewById(R.id.contentFM);
         pintarModulos();
-
         return aux;
     }
 
