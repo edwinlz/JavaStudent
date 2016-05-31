@@ -8,7 +8,6 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -19,8 +18,6 @@ import org.ksoap2.serialization.SoapObject;
 import org.ksoap2.serialization.SoapPrimitive;
 import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.ksoap2.transport.HttpTransportSE;
-
-import java.io.IOException;
 
 public class Registro extends AppCompatActivity {
     /*Contenedores */
@@ -103,7 +100,7 @@ public class Registro extends AppCompatActivity {
         }
     }
 
-    public void guardarUsuarioBD(String respuesta){
+    public void guardarUsuarioBDLocal(String respuesta){
         if(!respuesta.contains("ya fue registrado")) {
             String email = correo_view.getText().toString();
             String name = nombre_view.getText().toString();
@@ -181,7 +178,7 @@ public class Registro extends AppCompatActivity {
         Toast toast = Toast.makeText(getApplicationContext(),respuesta, Toast.LENGTH_LONG);
         toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
         toast.show();
-        guardarUsuarioBD(respuesta);
+        guardarUsuarioBDLocal(respuesta);
     }
 
     class CallRegistro extends AsyncTask<String,String,String> {

@@ -6,17 +6,11 @@ import android.annotation.TargetApi;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
-import android.app.LoaderManager.LoaderCallbacks;
 
-import android.content.CursorLoader;
-import android.content.Loader;
-import android.database.Cursor;
-import android.net.Uri;
 import android.os.AsyncTask;
 
 import android.os.Build;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
@@ -24,7 +18,6 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.inputmethod.EditorInfo;
-import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -43,20 +36,10 @@ import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.ksoap2.transport.HttpTransportSE;
 
 import java.util.ArrayList;
-import java.util.List;
 
-/**
- * A login screen that offers login via email/password.
- */
 public class Login extends AppCompatActivity {
-    private ConexionBD conexion;
-    private Usuario usuarioActual;
-    private CheckBox mCheckSesion;
-
-    /**
-     * Keep track of the login task to ensure we can cancel it if requested.
-     */
-    private UserLoginTask mAuthTask = null;
+    //Tarea asincrona para comprobacion local
+    private CallValidarLogeoLocal validacionLogeoLocal = null;
 
     // UI references.
     private AutoCompleteTextView mUsernameView;
@@ -64,15 +47,14 @@ public class Login extends AppCompatActivity {
     private View mProgressView;
     private View mLoginFormView;
     private Button mEmailSignInButton;
+    private CheckBox mCheckSesion;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        // Set up the login form.
 
-        /*inicio verificar usuarioa activo*/
-
+        /*verificador de usuario activo*/
         ConexionBD bda = new ConexionBD(this);
         bda.open();
 
@@ -87,7 +69,6 @@ public class Login extends AppCompatActivity {
                 Estatica.username_actual = c.getUsername();
                 m.putExtras(infoUsuario);
                 startActivity(m);
-
                 finish();
             }
         }
@@ -126,13 +107,8 @@ public class Login extends AppCompatActivity {
         startActivity(i);
     }
 
-    /**
-     * Attempts to sign in or register the account specified by the login form.
-     * If there are form errors (invalid email, missing fields, etc.), the
-     * errors are presented and no actual login attempt is made.
-     */
     private void intentarLogear() {
-        if (mAuthTask != null) {
+        if (validacionLogeoLocal != null) {
             return;
         }
 
@@ -163,11 +139,11 @@ public class Login extends AppCompatActivity {
 
         if (cancel) {
             focusView.requestFocus();
-        } else {
-            conexion = new ConexionBD(this);
+        }
+        else {
             showProgress(true);
-            mAuthTask = new UserLoginTask(username, password);
-            mAuthTask.execute((Void) null);
+            validacionLogeoLocal = new CallValidarLogeoLocal(username, password);
+            validacionLogeoLocal.execute((Void) null);
         }
     }
 
@@ -179,14 +155,9 @@ public class Login extends AppCompatActivity {
         return password.length() > 4;
     }
 
-    /**
-     * Shows the progress UI and hides the login form.
-     */
+    //Shows the progress UI and hides the login form.
     @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
     private void showProgress(final boolean show) {
-        // On Honeycomb MR2 we have the ViewPropertyAnimator APIs, which allow
-        // for very easy animations. If available, use these APIs to fade-in
-        // the progress spinner.
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
             int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
 
@@ -208,22 +179,18 @@ public class Login extends AppCompatActivity {
                 }
             });
         } else {
-            // The ViewPropertyAnimator APIs are not available, so simply show
-            // and hide the relevant UI components.
             mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
             mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
         }
     }
 
-    /**
-     * Represents an asynchronous login/registration task used to authenticate
-     * the user.
-     */
-    public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
+    class CallValidarLogeoLocal extends AsyncTask<Void, Void, Boolean> {
         private final String mUsername;
         private final String mPassword;
+        private ConexionBD conexion;
+        private Usuario usuarioActual;
 
-        UserLoginTask(String email, String password) {
+        CallValidarLogeoLocal(String email, String password) {
             mUsername = email;
             mPassword = password;
         }
@@ -231,12 +198,12 @@ public class Login extends AppCompatActivity {
         @Override
         protected Boolean doInBackground(Void... params) {
             try {
-                // Simulate network access.
                 Thread.sleep(2000);
             } catch (InterruptedException e) {
                 return false;
             }
 
+            conexion = new ConexionBD(Login.this);
             conexion.open();
             ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
             usuarios =(ArrayList<Usuario>) conexion.getUsuarios();
@@ -252,7 +219,7 @@ public class Login extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(final Boolean success) {
-            mAuthTask = null;
+            validacionLogeoLocal = null;
             showProgress(false);
             if (success) {
                 if(mCheckSesion.isChecked()){
@@ -275,11 +242,10 @@ public class Login extends AppCompatActivity {
 
         @Override
         protected void onCancelled() {
-            mAuthTask = null;
+            validacionLogeoLocal = null;
             showProgress(false);
         }
     }
-
 
     private static final String NAMESPACE = "http://tempuri.org/";
     private static final String URL="http://felipeantonio.somee.com/ServicioJavaStudent.asmx?WSDL";
@@ -314,13 +280,8 @@ public class Login extends AppCompatActivity {
         return bandera;
     }
 
-    private void mostrarRespuesta(String respuesta) {
-        Toast toast = Toast.makeText(getApplicationContext(),respuesta, Toast.LENGTH_LONG);
-        toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
-        toast.show();
+    private void validacionLogeo(String respuesta) {
         if(!respuesta.contains("Invalido, Credenciales")) {
-            Intent m = new Intent(Login.this, Principal.class);
-            Bundle infoUsuario = new Bundle();
             ConexionBD bda = new ConexionBD(this);
             bda.open();
             String[] valores = respuesta.split(",");
@@ -331,10 +292,19 @@ public class Login extends AppCompatActivity {
                 bda.insertUsuario(mUsernameView.getText().toString(), valores[1], mPasswordView.getText().toString(), valores[0], Integer.parseInt(valores[2]), Integer.parseInt(valores[3]),0,Integer.parseInt(valores[4]),Integer.parseInt(valores[5]),Integer.parseInt(valores[6]));
             }
             bda.close();
+
+            Intent m = new Intent(Login.this, Principal.class);
+            Bundle infoUsuario = new Bundle();
             infoUsuario.putString("usuario",mUsernameView.getText().toString());
+            Estatica.username_actual = mUsernameView.getText().toString();
             m.putExtras(infoUsuario);
             startActivity(m);
             finish();
+        }
+        else{
+            Toast toast = Toast.makeText(getApplicationContext(),respuesta, Toast.LENGTH_LONG);
+            toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+            toast.show();
         }
     }
 
@@ -364,7 +334,7 @@ public class Login extends AppCompatActivity {
             //super.onPostExecute(s);
             dialogo.dismiss();
             if(result.contains("ok")){
-                mostrarRespuesta(respuesta);
+                validacionLogeo(respuesta);
             }
         }
     }
