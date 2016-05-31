@@ -140,7 +140,6 @@ public class TabAmigo extends Fragment {
     private void respuestaSolicitudAmistad(String respuesta) {
         Toast toast = Toast.makeText(getContext(), respuesta, Toast.LENGTH_LONG);
         toast.show();
-        new CallGetAmistades().execute();
     }
 
     public void elimarAmigo(String username){
@@ -304,6 +303,7 @@ public class TabAmigo extends Fragment {
             //super.onPostExecute(s);
             dialogo.dismiss();
             if(result.contains("ok")){
+                new CallGetAmistades().execute();
                 respuestaSolicitudAmistad(respuesta);
             }
         }
