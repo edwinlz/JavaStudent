@@ -77,15 +77,21 @@
                 android:layout_gravity="center_horizontal"
                 android:typeface="monospace" />
         </ScrollView>
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Tomar Prueba"
-            android:id="@+id/takeButton"
-            android:background="@android:color/holo_green_light"
-            android:layout_margin="20dp"
-            android:typeface="monospace" />
 
     </LinearLayout>
+
+    <ImageButton
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:id="@+id/imageButton4"
+        android:src="@drawable/list"
+        android:scaleType="fitCenter"
+        android:layout_gravity="center_horizontal"
+        android:padding="0dp"
+        android:background="@drawable/ic_shape_prueba"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="242dp"
+        android:layout_marginStart="242dp"
+        android:layout_alignParentRight="true" />
 
 </RelativeLayout>
