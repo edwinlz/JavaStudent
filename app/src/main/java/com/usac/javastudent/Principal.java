@@ -185,6 +185,8 @@ public class Principal extends AppCompatActivity
             m.putExtras(infoUsuario);
             startActivity(m);
         } else if (id == R.id.nav_gallery) {
+            Intent m = new Intent(Principal.this,Contenido.class);
+            startActivity(m);
 
         } else if (id == R.id.nav_slideshow) {
 

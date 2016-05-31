@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="15dp">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="140dp"
+        android:background="@android:color/white"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:padding="8dp"
+        android:id="@+id/linearContenido1"
+        android:layout_marginBottom="20dp">
+
+        <ImageButton
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:id="@+id/conteAvatar"
+            android:src="@drawable/libro"
+            android:scaleType="fitCenter"
+            android:background="@drawable/ic_shape_circle"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center_horizontal"
+            android:padding="16dp" />
+
+        <TextView
+            android:id="@+id/conteTitulo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Titulo"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="@android:color/black"
+            android:layout_alignWithParentIfMissing="false"
+            android:layout_below="@+id/imageButton2"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center_horizontal"
+            android:typeface="monospace" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="Descripcion"
+            android:id="@+id/conteDesc"
+            android:layout_gravity="center_horizontal" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/white"
+        android:padding="8dp"
+        android:id="@+id/linearContenido2"
+        android:layout_below="@+id/linearContenido1">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/scrollView2" >
+
+            <WebView
+                android:id="@+id/conteTexto"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Titulo"
+                android:background="@drawable/fondo_modulo_v2"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@android:color/black"
+                android:layout_alignWithParentIfMissing="false"
+                android:layout_below="@+id/imageButton"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center_horizontal"
+                android:typeface="monospace" />
+        </ScrollView>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Tomar Prueba"
+            android:id="@+id/takeButton"
+            android:background="@android:color/holo_green_light"
+            android:layout_margin="20dp"
+            android:typeface="monospace" />
+
+    </LinearLayout>
+
+</RelativeLayout>
