@@ -1,6 +1,7 @@
 package com.usac.javastudent;
 
 import android.app.ActionBar;
+import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -18,10 +19,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.usac.clasesjava.ConexionBD;
 import com.usac.clasesjava.Modulo;
@@ -185,6 +188,22 @@ public class Temas extends AppCompatActivity {
 
             TextView textView_estado = (TextView) relativeLayout.findViewById(R.id.temaEstado);
             textView_estado.setText("Disponible");
+
+            ImageButton imgButton = (ImageButton)relativeLayout.findViewById(R.id.imageButton);
+            imgButton.setTag(tema);
+
+            imgButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Tema aux = (Tema)v.getTag();
+                    //Toast.makeText(getActivity(),"Hola",Toast.LENGTH_SHORT).show();
+                    Bundle datos = new Bundle();
+                    datos.putInt("tema",aux.getIdenficador());
+                    Intent intent = new Intent(getActivity(), Contenido.class);
+                    intent.putExtras(datos);
+                    startActivity(intent);
+                }
+            });
 
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ActionBar.LayoutParams.WRAP_CONTENT, ActionBar.LayoutParams.WRAP_CONTENT);
 
