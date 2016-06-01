@@ -35,11 +35,36 @@ public class Contenido extends AppCompatActivity {
         WebSettings webSettings = web_contenido.getSettings();
         webSettings.setJavaScriptEnabled(true);
 
-        String encabezado = "<html><head><style type=\"text/css\">@font-face {font-family: fuente;src: url('fonts/Pacifico.ttf'); }  @font-face {font-family: fuente2;src: url('fonts/FrederickatheGreat-Regular.ttf'); } @font-face {font-family: fuente3;src: url('fonts/JustAnotherHand.ttf'); }  body {font-family: fuente;font-size: 20px;text-align: justify;} h1{font-family: fuente2; font-size: 30px; text-align: center; } </style></head>";
+        String encabezado = "<html><head><style type=\"text/css\">@font-face {font-family: fuente;src: url('fonts/Pacifico.ttf'); }  @font-face {font-family: fuente2;src: url('fonts/FrederickatheGreat-Regular.ttf'); } @font-face {font-family: fuente3;src: url('fonts/JustAnotherHand.ttf'); }  body {font-family: fuente;font-size: 20px;text-align: justify;} h1{font-family: fuente2; font-size: 30px; text-align: center; } .nota{color: #616E14; border: solid 1px #BFD62F; background-color: #DAE691 -moz-border-radius: 6px; -webkit-border-radius: 6px; border-radius: 6px; padding: 14px 20px;} .nota:before{content:'Nota: ';}</style></head>";
         String cierre = "</html>";
         String total = encabezado+currentTema.getContenido()+cierre;
         web_contenido.loadDataWithBaseURL("file:///android_asset/",total, "text/html", "UTF-8", null);
 
+    }
+
+    @Override
+    protected void onPause() {
+        web_contenido.onPause();
+        super.onPause();
+    }
+
+    @Override
+    protected void onResume() {
+        web_contenido.onResume();
+        super.onResume();
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        web_contenido.saveState(outState);
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    protected void onDestroy() {
+        web_contenido.destroy();
+        web_contenido = null;
+        super.onDestroy();
     }
 
     public Tema getTema(int tema){
