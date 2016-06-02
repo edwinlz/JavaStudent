@@ -1,13 +1,18 @@
 package com.usac.javastudent;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.usac.clasesjava.ConexionBD;
+import com.usac.clasesjava.Prueba;
 import com.usac.clasesjava.Tema;
 
 public class Contenido extends AppCompatActivity {
@@ -29,6 +34,21 @@ public class Contenido extends AppCompatActivity {
 
         TextView descripcion = (TextView)findViewById(R.id.conteDesc);
         descripcion.setText(currentTema.getDescripcion());
+
+        ImageButton button = (ImageButton)findViewById(R.id.imageButton4);
+        button.setTag(currentTema);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Tema aux = (Tema) v.getTag();
+                Bundle datos = new Bundle();
+                datos.putInt("tema",aux.getIdenficador());
+                Intent nuevo = new Intent(Contenido.this,Preguntas.class);
+                nuevo.putExtras(datos);
+
+                startActivity(nuevo);
+            }
+        });
 
         web_contenido = (WebView)findViewById(R.id.conteTexto);
         web_contenido.setBackgroundColor(Color.TRANSPARENT);

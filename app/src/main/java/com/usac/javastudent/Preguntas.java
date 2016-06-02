@@ -18,9 +18,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -164,6 +166,8 @@ public class Preguntas extends AppCompatActivity {
                         Prueba aux = (Prueba)v.getTag();
                         if(_respuesta.getText().toString().equals(aux.respuestas.get(0))){
                             Toast.makeText(getActivity(), "Ha ganado "+ aux.experiencia +" puntos de experiencia", Toast.LENGTH_LONG).show();
+                        }else{
+                            Toast.makeText(getActivity(), "La respuesta es incorrecta", Toast.LENGTH_LONG).show();
                         }
                     }
                 });
@@ -182,15 +186,122 @@ public class Preguntas extends AppCompatActivity {
                 TextView textView_titulo = (TextView) relativeLayout.findViewById(R.id.quizPregunta);
                 textView_titulo.setText(prueba.pregunta);
 
+                final RadioButton opcion1 = (RadioButton)relativeLayout.findViewById(R.id.radioButton);
+                opcion1.setText(prueba.respuestas.get(0).getRespuesta());
+
+                final RadioButton opcion2 = (RadioButton)relativeLayout.findViewById(R.id.radioButton2);
+                opcion2.setText(prueba.respuestas.get(1).getRespuesta());
+
+                final RadioButton opcion3 = (RadioButton)relativeLayout.findViewById(R.id.radioButton3);
+                opcion3.setText(prueba.respuestas.get(2).getRespuesta());
+
+                ImageButton button = (ImageButton)relativeLayout.findViewById(R.id.imageButton4);
+                button.setTag(prueba);
+
+                button.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Prueba aux = (Prueba)v.getTag();
+                        int respuestaUser = 1;
+                        if(opcion1.isChecked()){
+                            if(esVerdadera(1,aux)){
+                                Toast.makeText(getActivity(), "Ha ganado "+ aux.experiencia +" puntos de experiencia", Toast.LENGTH_LONG).show();
+                            }else{
+                                Toast.makeText(getActivity(), "La respuesta es incorrecta", Toast.LENGTH_LONG).show();
+                            }
+                        }else if(opcion2.isChecked()){
+                            if(esVerdadera(2,aux)){
+                                Toast.makeText(getActivity(), "Ha ganado "+ aux.experiencia +" puntos de experiencia", Toast.LENGTH_LONG).show();
+                            }else{
+                                Toast.makeText(getActivity(), "La respuesta es incorrecta", Toast.LENGTH_LONG).show();
+                            }
+                        }else if (opcion3.isChecked()){
+                            if(esVerdadera(3,aux)){
+                                Toast.makeText(getActivity(), "Ha ganado "+ aux.experiencia +" puntos de experiencia", Toast.LENGTH_LONG).show();
+                            }else{
+                                Toast.makeText(getActivity(), "La respuesta es incorrecta", Toast.LENGTH_LONG).show();
+                            }
+                        }
+                    }
+                });
+
+                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ActionBar.LayoutParams.WRAP_CONTENT, ActionBar.LayoutParams.WRAP_CONTENT);
+
+                params.topMargin = 15;
+                relativeLayout.setLayoutParams(params);
+
+                layout.addView(relativeLayout);
+
+
             }else if(prueba.tipo == 3){
                 int id = R.layout.quiz_layout_multiple2;
                 RelativeLayout relativeLayout = (RelativeLayout) inflater.inflate(id, null, false);
                 TextView textView_titulo = (TextView) relativeLayout.findViewById(R.id.quizPregunta);
                 textView_titulo.setText(prueba.pregunta);
 
+                final CheckBox opcion1 = (CheckBox) relativeLayout.findViewById(R.id.checkBox);
+                opcion1.setText(prueba.respuestas.get(0).getRespuesta());
+
+                final CheckBox opcion2 = (CheckBox) relativeLayout.findViewById(R.id.checkBox2);
+                opcion2.setText(prueba.respuestas.get(1).getRespuesta());
+
+                final CheckBox opcion3 = (CheckBox) relativeLayout.findViewById(R.id.checkBox3);
+                opcion3.setText(prueba.respuestas.get(2).getRespuesta());
+
+                ImageButton button = (ImageButton)relativeLayout.findViewById(R.id.imageButton4);
+                button.setTag(prueba);
+
+                button.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Prueba aux = (Prueba)v.getTag();
+                        int respuestaUser = 1;
+                        boolean cancel = false;
+                        if(opcion1.isChecked()){
+                            if(esVerdadera(1,aux)){
+                             cancel = true;
+                            }
+                        }
+                        if(opcion2.isChecked()){
+                            if(esVerdadera(2,aux)){
+                                cancel = true;
+                            }
+                        }
+                        if (opcion3.isChecked()){
+                            if(esVerdadera(3,aux)){
+                                cancel = true;
+                            }
+                        }
+
+                        if(cancel == true){
+                            Toast.makeText(getActivity(), "Ha ganado "+ aux.experiencia +" puntos de experiencia", Toast.LENGTH_LONG).show();
+                        }else{
+                            Toast.makeText(getActivity(), "La respuesta es incorrecta", Toast.LENGTH_LONG).show();
+                        }
+                    }
+                });
+
+                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ActionBar.LayoutParams.WRAP_CONTENT, ActionBar.LayoutParams.WRAP_CONTENT);
+
+                params.topMargin = 15;
+                relativeLayout.setLayoutParams(params);
+
+                layout.addView(relativeLayout);
+
             }
 
         }
+    }
+
+    public static boolean esVerdadera(int rUser, Prueba prueba){
+        for(int a = 0; a<prueba.respuestas.size(); a++){
+            if(prueba.respuestas.get(a).getValido()==1){
+                if(a==rUser){
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     public static Prueba getPrueba(int id){
