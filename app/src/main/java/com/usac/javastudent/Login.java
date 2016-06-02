@@ -64,10 +64,8 @@ public class Login extends AppCompatActivity {
         for(Usuario c:userActive){
             if(c.getSesion()==1){
                 Intent m = new Intent(Login.this,Principal.class);
-                Bundle infoUsuario = new Bundle();
-                infoUsuario.putString("usuario",c.getUsername());
                 Estatica.username_actual = c.getUsername();
-                m.putExtras(infoUsuario);
+                Estatica.usuario_actual = c;
                 startActivity(m);
                 finish();
             }
@@ -289,13 +287,12 @@ public class Login extends AppCompatActivity {
             else{
                 bda.insertUsuario(mUsernameView.getText().toString(), valores[1], mPasswordView.getText().toString(), valores[0], Integer.parseInt(valores[2]), Integer.parseInt(valores[3]),0,Integer.parseInt(valores[4]),Integer.parseInt(valores[5]),Integer.parseInt(valores[6]));
             }
+            Estatica.usuario_actual = bda.getUsuario(mUsernameView.getText().toString());
             bda.close();
 
             Intent m = new Intent(Login.this, Principal.class);
-            Bundle infoUsuario = new Bundle();
-            infoUsuario.putString("usuario",mUsernameView.getText().toString());
             Estatica.username_actual = mUsernameView.getText().toString();
-            m.putExtras(infoUsuario);
+
             startActivity(m);
             finish();
         }

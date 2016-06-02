@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.Toast;
 
 import com.usac.clasesjava.ConexionBD;
@@ -25,6 +26,13 @@ public class Registro extends AppCompatActivity {
     private EditText correo_view;
     private EditText nombre_view;
     private EditText pass_view;
+    private RadioButton avaImagen1;
+    private RadioButton avaImagen2;
+    private RadioButton avaImagen3;
+    private RadioButton avaImagen4;
+    private RadioButton avaImagen5;
+    private RadioButton avaImagen6;
+    private int avatarUser = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +43,8 @@ public class Registro extends AppCompatActivity {
         correo_view = (EditText)findViewById(R.id.email_reg);
         pass_view = (EditText)findViewById(R.id.pass_reg);
         username_view = (EditText)findViewById(R.id.username_reg);
+
+        prepararAvatares();
     }
 
     public void cancelar(View view){
@@ -100,6 +110,86 @@ public class Registro extends AppCompatActivity {
         }
     }
 
+
+    public void prepararAvatares()
+    {
+        avaImagen1 = (RadioButton)findViewById(R.id.radioAvatar1);
+        avaImagen1.setOnClickListener(seleccionarAvatar);
+        avaImagen1.setTag(1);
+
+        avaImagen2 = (RadioButton)findViewById(R.id.radioAvatar2);
+        avaImagen2.setOnClickListener(seleccionarAvatar);
+        avaImagen2.setTag(2);
+
+        avaImagen3 = (RadioButton)findViewById(R.id.radioAvatar3);
+        avaImagen3.setOnClickListener(seleccionarAvatar);
+        avaImagen3.setTag(3);
+
+        avaImagen4 = (RadioButton)findViewById(R.id.radioAvatar4);
+        avaImagen4.setOnClickListener(seleccionarAvatar);
+        avaImagen4.setTag(4);
+
+        avaImagen5 = (RadioButton)findViewById(R.id.radioAvatar5);
+        avaImagen5.setOnClickListener(seleccionarAvatar);
+        avaImagen5.setTag(5);
+
+        avaImagen6 = (RadioButton)findViewById(R.id.radioAvatar6);
+        avaImagen6.setOnClickListener(seleccionarAvatar);
+        avaImagen6.setTag(6);
+
+        avaImagen1.setSelected(true);
+    }
+
+    View.OnClickListener seleccionarAvatar = new View.OnClickListener(){
+        public void onClick(View v) {
+            int idAvatar = (int)v.getTag();
+            verificarCambio(idAvatar);
+            avatarUser = idAvatar;
+            //Toast toast = Toast.makeText(getApplicationContext(),"Se selecciono "+v.getTag(), Toast.LENGTH_LONG);
+            //toast.show();
+        }
+    };
+
+    public void verificarCambio(int id){
+        if(id==1){
+            avaImagen2.setChecked(false);
+            avaImagen3.setChecked(false);
+            avaImagen4.setChecked(false);
+            avaImagen5.setChecked(false);
+            avaImagen6.setChecked(false);
+        }else if (id==2){
+            avaImagen1.setChecked(false);
+            avaImagen3.setChecked(false);
+            avaImagen4.setChecked(false);
+            avaImagen5.setChecked(false);
+            avaImagen6.setChecked(false);
+        }else if (id==3){
+            avaImagen1.setChecked(false);
+            avaImagen2.setChecked(false);
+            avaImagen4.setChecked(false);
+            avaImagen5.setChecked(false);
+            avaImagen6.setChecked(false);
+        }else if (id==4){
+            avaImagen1.setChecked(false);
+            avaImagen2.setChecked(false);
+            avaImagen3.setChecked(false);
+            avaImagen5.setChecked(false);
+            avaImagen6.setChecked(false);
+        }else if (id==5){
+            avaImagen1.setChecked(false);
+            avaImagen2.setChecked(false);
+            avaImagen3.setChecked(false);
+            avaImagen4.setChecked(false);
+            avaImagen6.setChecked(false);
+        }else if (id==6){
+            avaImagen1.setChecked(false);
+            avaImagen2.setChecked(false);
+            avaImagen3.setChecked(false);
+            avaImagen4.setChecked(false);
+            avaImagen5.setChecked(false);
+        }
+    }
+
     public void guardarUsuarioBDLocal(String respuesta){
         if(!respuesta.contains("ya fue registrado")) {
             String email = correo_view.getText().toString();
@@ -111,7 +201,7 @@ public class Registro extends AppCompatActivity {
             bd.open();
             if (bd.getUsuario(username) == null) {
                 /*El usuario se guardara localmente*/
-                bd.insertUsuario(username, email, password, name, 0, 0, 0, 1, 1, 1);//cambiar por el numero de imagen que se selecciono
+                bd.insertUsuario(username, email, password, name, 0, 0, 0, 1, 1, avatarUser);
             }
             bd.close(); //cerrar conexion bd
             finish();

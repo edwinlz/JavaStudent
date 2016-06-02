@@ -50,7 +50,7 @@ public class Principal extends AppCompatActivity
 
     private ViewGroup layout;
     private ScrollView scrollView;
-    private Usuario currentUser;
+    //private Usuario currentUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,11 +70,18 @@ public class Principal extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
 
-        Intent recLog = getIntent();
-        Bundle b = recLog.getExtras();
+        View header = navigationView.getHeaderView(0);
+        ImageView imageUser = (ImageView) header.findViewById(R.id.imageUser);
+        imageUser.setImageResource(getIdImage(Estatica.usuario_actual.getImagen()));
 
-        String username_ = b.getString("usuario");
-        currentUser = userSesion(username_);
+        TextView nameUser = (TextView) header.findViewById(R.id.nameUser);
+        nameUser.setText(Estatica.usuario_actual.getNombre());
+
+        TextView emailUser = (TextView) header.findViewById(R.id.emailUser);
+        emailUser.setText(Estatica.usuario_actual.getEmail());
+
+        TextView expUser = (TextView) header.findViewById(R.id.userExp);
+        expUser.setText(""+Estatica.usuario_actual.getExperiencia());
 
         /*INICIO*/
         TabLayout tabLayout = (TabLayout)findViewById(R.id.tab_layout);
@@ -105,6 +112,18 @@ public class Principal extends AppCompatActivity
         });
         /*FIN*/
 
+    }
+
+    public int getIdImage(int imagen){
+        switch (imagen){
+            case 1: return R.drawable.user_boy_3;
+            case 2: return R.drawable.user_man_1;
+            case 3: return R.drawable.user_man_2;
+            case 4: return R.drawable.user_girl_1;
+            case 5: return R.drawable.user_girl_2;
+            case 6: return R.drawable.user_girl_3;
+            default: return R.drawable.user_boy_3;
+        }
     }
 
 
@@ -144,12 +163,14 @@ public class Principal extends AppCompatActivity
         } else if (id == R.id.nav_send) {
             ConexionBD con = new ConexionBD(this);
             con.open();
-            if(currentUser != null)
-                con.updateUsuarioSesion(currentUser.getUsername(),0);
+            if(Estatica.usuario_actual != null)
+                con.updateUsuarioSesion(Estatica.usuario_actual.getUsername(),0);
             con.close();
             //Intent intent = getIntent();
             finish();
-            //startActivity(intent);
+
+            Intent log = new Intent(Principal.this,Login.class);
+            startActivity(log);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

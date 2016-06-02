@@ -6,4 +6,5 @@ package com.usac.clasesjava;
 public class Estatica {
     public static String username_actual=null;
     public static SetDatosNube datos = new SetDatosNube();
+    public static Usuario usuario_actual = null;
 }
