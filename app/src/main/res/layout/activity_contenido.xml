@@ -8,90 +8,112 @@
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="140dp"
-        android:background="@android:color/white"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:padding="8dp"
-        android:id="@+id/linearContenido1"
-        android:layout_marginBottom="20dp">
+        android:layout_height="match_parent">
 
-        <ImageButton
-            android:layout_width="90dp"
-            android:layout_height="90dp"
-            android:id="@+id/conteAvatar"
-            android:src="@drawable/libro"
-            android:scaleType="fitCenter"
-            android:background="@drawable/ic_shape_circle"
-            android:layout_centerHorizontal="true"
-            android:layout_gravity="center_horizontal"
-            android:padding="16dp" />
-
-        <TextView
-            android:id="@+id/conteTitulo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Titulo"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:textColor="@android:color/black"
-            android:layout_alignWithParentIfMissing="false"
-            android:layout_below="@+id/imageButton2"
-            android:layout_centerHorizontal="true"
-            android:layout_gravity="center_horizontal"
-            android:typeface="monospace" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="Descripcion"
-            android:id="@+id/conteDesc"
-            android:layout_gravity="center_horizontal" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@android:color/white"
-        android:padding="8dp"
-        android:id="@+id/linearContenido2"
-        android:layout_below="@+id/linearContenido1">
-
-        <ScrollView
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/scrollView2" >
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="20dp">
 
-            <WebView
-                android:id="@+id/conteTexto"
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/white"
+                android:padding="8dp"
+                android:id="@+id/linearContenido1">
+
+                <ImageButton
+                    android:layout_width="90dp"
+                    android:layout_height="90dp"
+                    android:id="@+id/conteAvatar"
+                    android:src="@drawable/libro"
+                    android:scaleType="fitCenter"
+                    android:background="@drawable/ic_shape_circle"
+                    android:layout_centerHorizontal="true"
+                    android:layout_gravity="center_horizontal"
+                    android:padding="16dp" />
+
+                <TextView
+                    android:id="@+id/conteTitulo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Titulo"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="@android:color/black"
+                    android:layout_alignWithParentIfMissing="false"
+                    android:layout_below="@+id/imageButton2"
+                    android:layout_centerHorizontal="true"
+                    android:layout_gravity="center_horizontal"
+                    android:typeface="monospace" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="Definición puntual de lo que es Java y sus alcances. Definición puntual"
+                    android:id="@+id/conteDesc"
+                    android:layout_gravity="center_horizontal"
+                    android:singleLine="false"
+                    android:textAlignment="center" />
+            </LinearLayout>
+
+            <ImageButton
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:id="@+id/imageButton4"
+                android:src="@drawable/list"
+                android:scaleType="fitCenter"
+                android:layout_gravity="center_horizontal"
+                android:padding="6dp"
+                android:background="@drawable/ic_shape_circle_otro"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentRight="true" />
+
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Titulo"
-                android:background="@drawable/fondo_modulo_v2"
                 android:textAppearance="?android:attr/textAppearanceSmall"
-                android:textColor="@android:color/black"
-                android:layout_alignWithParentIfMissing="false"
-                android:layout_below="@+id/imageButton"
-                android:layout_centerHorizontal="true"
-                android:layout_gravity="center_horizontal"
-                android:typeface="monospace" />
-        </ScrollView>
+                android:text="Examen"
+                android:id="@+id/textView"
+                android:layout_alignWithParentIfMissing="true"
+                android:layout_below="@+id/imageButton4"
+                android:layout_alignRight="@+id/imageButton4"
+                android:layout_alignEnd="@+id/imageButton4" />
+        </RelativeLayout>
 
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/white"
+            android:padding="8dp"
+            android:id="@+id/linearContenido2"
+            android:layout_below="@+id/linearContenido1">
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="363dp"
+                android:id="@+id/scrollView2" >
+
+                <WebView
+                    android:id="@+id/conteTexto"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Titulo"
+                    android:background="@drawable/fondo_modulo_v2"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="@android:color/black"
+                    android:layout_alignWithParentIfMissing="false"
+                    android:layout_below="@+id/imageButton"
+                    android:layout_centerHorizontal="true"
+                    android:layout_gravity="center_horizontal"
+                    android:typeface="monospace" />
+            </ScrollView>
+
+        </LinearLayout>
     </LinearLayout>
-
-    <ImageButton
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:id="@+id/imageButton4"
-        android:src="@drawable/list"
-        android:scaleType="fitCenter"
-        android:layout_gravity="center_horizontal"
-        android:padding="0dp"
-        android:background="@drawable/ic_shape_prueba"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="242dp"
-        android:layout_marginStart="242dp"
-        android:layout_alignParentRight="true" />
 
 </RelativeLayout>

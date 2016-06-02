@@ -2,6 +2,7 @@ package com.usac.javastudent;
 
 import android.app.ActionBar;
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -27,6 +28,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.usac.clasesjava.ConexionBD;
+import com.usac.clasesjava.Estatica;
 import com.usac.clasesjava.Modulo;
 import com.usac.clasesjava.Tema;
 
@@ -51,7 +53,7 @@ public class Temas extends AppCompatActivity {
      * The {@link ViewPager} that will host the section contents.
      */
     private ViewPager mViewPager;
-    public Modulo currentModulo;
+    public static Modulo currentModulo;
     public static ArrayList<Tema> lstTemas;
 
     @Override
@@ -179,23 +181,33 @@ public class Temas extends AppCompatActivity {
 
             int ntema = getArguments().getInt(ARG_SECTION_NUMBER);
 
-            setTema(getTema(ntema));
+            setTema(getTema(ntema),ntema);
 
 
             return rootView;
         }
 
-        public void setTema(Tema tema){
+        public void setTema(Tema tema, int num){
             LayoutInflater inflater = LayoutInflater.from(getActivity());
             int id = R.layout.temas_layout;
 
             RelativeLayout relativeLayout = (RelativeLayout) inflater.inflate(id, null, false);
 
+            TextView textView_numero = (TextView) relativeLayout.findViewById(R.id.temaNumero);
+            textView_numero.setText(num+"/"+currentModulo.getTemas());
+
             TextView textView_titulo = (TextView) relativeLayout.findViewById(R.id.nameTema);
             textView_titulo.setText(tema.getNombre());
 
             TextView textView_estado = (TextView) relativeLayout.findViewById(R.id.temaEstado);
-            textView_estado.setText("Disponible");
+            if(Estatica.usuario_actual.getExperiencia()<tema.getExperiencia()){
+                textView_estado.setText("Bloqueado");
+                textView_estado.setTextColor(Color.RED);
+            }else if(currentModulo.getIdentificador()==Estatica.usuario_actual.getModulo() && Estatica.usuario_actual.getTema()>num){
+                textView_estado.setText("Terminado");
+                textView_estado.setTextColor(Color.GRAY);
+            }
+
 
             ImageButton imgButton = (ImageButton)relativeLayout.findViewById(R.id.imageButton);
             imgButton.setTag(tema);
@@ -205,11 +217,15 @@ public class Temas extends AppCompatActivity {
                 public void onClick(View v) {
                     Tema aux = (Tema)v.getTag();
                     //Toast.makeText(getActivity(),"Hola",Toast.LENGTH_SHORT).show();
-                    Bundle datos = new Bundle();
-                    datos.putInt("tema",aux.getIdenficador());
-                    Intent intent = new Intent(getActivity(), Contenido.class);
-                    intent.putExtras(datos);
-                    startActivity(intent);
+                    if(Estatica.usuario_actual.getExperiencia()<aux.getExperiencia()){
+                          Toast.makeText(getActivity(),"No tiene la experiencia suficiente",Toast.LENGTH_SHORT).show();
+                    }else{
+                        Bundle datos = new Bundle();
+                        datos.putInt("tema",aux.getIdenficador());
+                        Intent intent = new Intent(getActivity(), Contenido.class);
+                        intent.putExtras(datos);
+                        startActivity(intent);
+                    }
                 }
             });
 

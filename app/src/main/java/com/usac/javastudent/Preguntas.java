@@ -1,6 +1,8 @@
 package com.usac.javastudent;
 
 import android.app.ActionBar;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -140,17 +142,20 @@ public class Preguntas extends AppCompatActivity {
 
             int nprueba = getArguments().getInt(ARG_SECTION_NUMBER);
 
-            setPrueba(getPrueba(nprueba));
+            setPrueba(getPrueba(nprueba),nprueba);
 
             return rootView;
         }
 
-        public void setPrueba(Prueba prueba){
+        public void setPrueba(Prueba prueba,int num){
 
             LayoutInflater inflater = LayoutInflater.from(getActivity());
             if(prueba.tipo == 1){
                 int id = R.layout.quiz_layout_directa;
                 RelativeLayout relativeLayout = (RelativeLayout) inflater.inflate(id, null, false);
+
+                TextView textView_numero = (TextView) relativeLayout.findViewById(R.id.preguntaNum);
+                textView_numero.setText(num+"/"+lstPruebas.size());
 
                 TextView textView_titulo = (TextView) relativeLayout.findViewById(R.id.quizPregunta);
                 textView_titulo.setText(prueba.pregunta);
@@ -158,16 +163,22 @@ public class Preguntas extends AppCompatActivity {
                 final EditText _respuesta = (EditText)relativeLayout.findViewById(R.id.respDirecta);
 
 
-                ImageButton button = (ImageButton)relativeLayout.findViewById(R.id.quizEnviar);
+                final ImageButton button = (ImageButton)relativeLayout.findViewById(R.id.quizEnviar);
                 button.setTag(prueba);
                 button.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         Prueba aux = (Prueba)v.getTag();
                         if(_respuesta.getText().toString().equals(aux.respuestas.get(0))){
-                            Toast.makeText(getActivity(), "Ha ganado "+ aux.experiencia +" puntos de experiencia", Toast.LENGTH_LONG).show();
+                            //Toast.makeText(getActivity(), "Ha ganado "+ aux.experiencia +" puntos de experiencia", Toast.LENGTH_LONG).show();
+                            getFeedback("La respuesta es correcta +"+aux.experiencia+"EXP");
+                            button.setEnabled(false);
+                            button.setImageResource(R.drawable.minus);
                         }else{
-                            Toast.makeText(getActivity(), "La respuesta es incorrecta", Toast.LENGTH_LONG).show();
+                            //Toast.makeText(getActivity(), "La respuesta es incorrecta", Toast.LENGTH_LONG).show();
+                            getFeedback("La respuesta es incorrecta");
+                            button.setEnabled(false);
+                            button.setImageResource(R.drawable.minus);
                         }
                     }
                 });
@@ -180,9 +191,17 @@ public class Preguntas extends AppCompatActivity {
 
                 layout.addView(relativeLayout);
 
+
+
+
+
             }else if(prueba.tipo == 2){
                 int id = R.layout.quiz_layout_multiple1;
                 RelativeLayout relativeLayout = (RelativeLayout) inflater.inflate(id, null, false);
+
+                TextView textView_numero = (TextView) relativeLayout.findViewById(R.id.preguntaNum);
+                textView_numero.setText(num+"/"+lstPruebas.size());
+
                 TextView textView_titulo = (TextView) relativeLayout.findViewById(R.id.quizPregunta);
                 textView_titulo.setText(prueba.pregunta);
 
@@ -195,7 +214,7 @@ public class Preguntas extends AppCompatActivity {
                 final RadioButton opcion3 = (RadioButton)relativeLayout.findViewById(R.id.radioButton3);
                 opcion3.setText(prueba.respuestas.get(2).getRespuesta());
 
-                ImageButton button = (ImageButton)relativeLayout.findViewById(R.id.imageButton4);
+                final ImageButton button = (ImageButton)relativeLayout.findViewById(R.id.imageButton4);
                 button.setTag(prueba);
 
                 button.setOnClickListener(new View.OnClickListener() {
@@ -205,21 +224,39 @@ public class Preguntas extends AppCompatActivity {
                         int respuestaUser = 1;
                         if(opcion1.isChecked()){
                             if(esVerdadera(1,aux)){
-                                Toast.makeText(getActivity(), "Ha ganado "+ aux.experiencia +" puntos de experiencia", Toast.LENGTH_LONG).show();
+                                //Toast.makeText(getActivity(), "Ha ganado "+ aux.experiencia +" puntos de experiencia", Toast.LENGTH_LONG).show();
+                                getFeedback("La respuesta es correcta +"+aux.experiencia+"EXP");
+                                button.setEnabled(false);
+                                button.setImageResource(R.drawable.minus);
                             }else{
-                                Toast.makeText(getActivity(), "La respuesta es incorrecta", Toast.LENGTH_LONG).show();
+                                //Toast.makeText(getActivity(), "La respuesta es incorrecta", Toast.LENGTH_LONG).show();
+                                getFeedback("La respuesta es incorrecta");
+                                button.setEnabled(false);
+                                button.setImageResource(R.drawable.minus);
                             }
                         }else if(opcion2.isChecked()){
                             if(esVerdadera(2,aux)){
-                                Toast.makeText(getActivity(), "Ha ganado "+ aux.experiencia +" puntos de experiencia", Toast.LENGTH_LONG).show();
+                                //Toast.makeText(getActivity(), "Ha ganado "+ aux.experiencia +" puntos de experiencia", Toast.LENGTH_LONG).show();
+                                getFeedback("La respuesta es correcta +"+aux.experiencia+"EXP");
+                                button.setEnabled(false);
+                                button.setImageResource(R.drawable.minus);
                             }else{
-                                Toast.makeText(getActivity(), "La respuesta es incorrecta", Toast.LENGTH_LONG).show();
+                                //Toast.makeText(getActivity(), "La respuesta es incorrecta", Toast.LENGTH_LONG).show();
+                                getFeedback("La respuesta es incorrecta");
+                                button.setEnabled(false);
+                                button.setImageResource(R.drawable.minus);
                             }
                         }else if (opcion3.isChecked()){
                             if(esVerdadera(3,aux)){
-                                Toast.makeText(getActivity(), "Ha ganado "+ aux.experiencia +" puntos de experiencia", Toast.LENGTH_LONG).show();
+                                //Toast.makeText(getActivity(), "Ha ganado "+ aux.experiencia +" puntos de experiencia", Toast.LENGTH_LONG).show();
+                                getFeedback("La respuesta es correcta +"+aux.experiencia+"EXP");
+                                button.setEnabled(false);
+                                button.setImageResource(R.drawable.minus);
                             }else{
-                                Toast.makeText(getActivity(), "La respuesta es incorrecta", Toast.LENGTH_LONG).show();
+                                //Toast.makeText(getActivity(), "La respuesta es incorrecta", Toast.LENGTH_LONG).show();
+                                getFeedback("La respuesta es incorrecta");
+                                button.setEnabled(false);
+                                button.setImageResource(R.drawable.minus);
                             }
                         }
                     }
@@ -236,6 +273,10 @@ public class Preguntas extends AppCompatActivity {
             }else if(prueba.tipo == 3){
                 int id = R.layout.quiz_layout_multiple2;
                 RelativeLayout relativeLayout = (RelativeLayout) inflater.inflate(id, null, false);
+
+                TextView textView_numero = (TextView) relativeLayout.findViewById(R.id.preguntaNum);
+                textView_numero.setText(num+"/"+lstPruebas.size());
+
                 TextView textView_titulo = (TextView) relativeLayout.findViewById(R.id.quizPregunta);
                 textView_titulo.setText(prueba.pregunta);
 
@@ -248,7 +289,7 @@ public class Preguntas extends AppCompatActivity {
                 final CheckBox opcion3 = (CheckBox) relativeLayout.findViewById(R.id.checkBox3);
                 opcion3.setText(prueba.respuestas.get(2).getRespuesta());
 
-                ImageButton button = (ImageButton)relativeLayout.findViewById(R.id.imageButton4);
+                final ImageButton button = (ImageButton)relativeLayout.findViewById(R.id.imageButton4);
                 button.setTag(prueba);
 
                 button.setOnClickListener(new View.OnClickListener() {
@@ -274,9 +315,15 @@ public class Preguntas extends AppCompatActivity {
                         }
 
                         if(cancel == true){
-                            Toast.makeText(getActivity(), "Ha ganado "+ aux.experiencia +" puntos de experiencia", Toast.LENGTH_LONG).show();
+                            //Toast.makeText(getActivity(), "Ha ganado "+ aux.experiencia +" puntos de experiencia", Toast.LENGTH_LONG).show();
+                            getFeedback("La respuesta es correcta +"+aux.experiencia+"EXP");
+                            button.setEnabled(false);
+                            button.setImageResource(R.drawable.minus);
                         }else{
-                            Toast.makeText(getActivity(), "La respuesta es incorrecta", Toast.LENGTH_LONG).show();
+                            //Toast.makeText(getActivity(), "La respuesta es incorrecta", Toast.LENGTH_LONG).show();
+                            getFeedback("La respuesta es incorrecta");
+                            button.setEnabled(false);
+                            button.setImageResource(R.drawable.minus);
                         }
                     }
                 });
@@ -290,13 +337,30 @@ public class Preguntas extends AppCompatActivity {
 
             }
 
+
+
+        }
+
+        public void getFeedback(String mensaje){
+            AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
+            alert.setTitle("Feedback");
+            alert.setMessage(mensaje);
+            alert.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int whichButton) {
+
+                }
+            });
+
+            alert.show();
         }
     }
+
+
 
     public static boolean esVerdadera(int rUser, Prueba prueba){
         for(int a = 0; a<prueba.respuestas.size(); a++){
             if(prueba.respuestas.get(a).getValido()==1){
-                if(a==rUser){
+                if(a+1==rUser){
                     return true;
                 }
             }
@@ -343,7 +407,7 @@ public class Preguntas extends AppCompatActivity {
         @Override
         public int getCount() {
             // Show 3 total pages.
-            return 3;
+            return lstPruebas.size();
         }
 
         @Override
@@ -355,6 +419,12 @@ public class Preguntas extends AppCompatActivity {
                     return "SECTION 2";
                 case 2:
                     return "SECTION 3";
+                case 3:
+                    return "SECTION 4";
+                case 4:
+                    return "SECTION 5";
+                case 5:
+                    return "SECTION 6";
             }
             return null;
         }

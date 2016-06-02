@@ -1,5 +1,7 @@
 package com.usac.javastudent;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
@@ -40,13 +42,9 @@ public class Contenido extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Tema aux = (Tema) v.getTag();
-                Bundle datos = new Bundle();
-                datos.putInt("tema",aux.getIdenficador());
-                Intent nuevo = new Intent(Contenido.this,Preguntas.class);
-                nuevo.putExtras(datos);
 
-                startActivity(nuevo);
+                Tema aux = (Tema) v.getTag();
+                preguntar(aux);
             }
         });
 
@@ -60,6 +58,29 @@ public class Contenido extends AppCompatActivity {
         String total = encabezado+currentTema.getContenido()+cierre;
         web_contenido.loadDataWithBaseURL("file:///android_asset/",total, "text/html", "UTF-8", null);
 
+    }
+
+    public void preguntar(final Tema aux){
+        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+        alert.setTitle("¿Desea iniciar la prueba de conocimiento?");
+
+        alert.setPositiveButton("Si", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+                Bundle datos = new Bundle();
+                datos.putInt("tema",aux.getIdenficador());
+                Intent nuevo = new Intent(Contenido.this,Preguntas.class);
+                nuevo.putExtras(datos);
+                startActivity(nuevo);
+            }
+        });
+
+        alert.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+
+            }
+        });
+
+        alert.show();
     }
 
     @Override

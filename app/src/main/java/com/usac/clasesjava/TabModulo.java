@@ -58,15 +58,16 @@ public class TabModulo extends Fragment {
             @Override
             public void onClick(View v) {
                 Modulo aux = (Modulo)v.getTag();
-              //  if(Estatica.usuario_actual.getExperiencia()<aux.getExperiencia()){
-              //      Toast.makeText(getActivity(),"No tiene la experiencia suficiente",Toast.LENGTH_SHORT).show();
-             //   }else{
+                if(Estatica.usuario_actual.getExperiencia()<aux.getExperiencia()){
+                    Toast.makeText(getActivity(),"No tiene la experiencia suficiente",Toast.LENGTH_SHORT).show();
+                }else{
+
                     Bundle datos = new Bundle();
                     datos.putInt("modulo",aux.getIdentificador());
                     Intent intent = new Intent(getActivity(), Temas.class);
                     intent.putExtras(datos);
                     startActivity(intent);
-              //  }
+                }
             }
         });
 
@@ -81,6 +82,9 @@ public class TabModulo extends Fragment {
         if(Estatica.usuario_actual.getExperiencia()<mod.getExperiencia()){
             textView_estado.setText("Bloqueado");
             textView_estado.setTextColor(Color.RED);
+        }else if(Estatica.usuario_actual.getModulo()>mod.getIdentificador()){
+            textView_estado.setText("Terminado");
+            textView_estado.setTextColor(Color.GRAY);
         }
 
 
