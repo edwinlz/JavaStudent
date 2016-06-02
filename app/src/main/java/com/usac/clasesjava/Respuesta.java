@@ -7,11 +7,13 @@ public class Respuesta {
     private int identificador;
     private int prueba;
     private String respuesta;
+    private int valido;
 
-    public Respuesta(int identificador, int prueba, String respuesta) {
+    public Respuesta(int identificador, int prueba, String respuesta, int valido) {
         this.identificador = identificador;
         this.prueba = prueba;
         this.respuesta = respuesta;
+        this.valido = valido;
     }
 
     public Respuesta(){}
@@ -38,5 +40,13 @@ public class Respuesta {
 
     public void setRespuesta(String respuesta) {
         this.respuesta = respuesta;
+    }
+
+    public int getValido() {
+        return valido;
+    }
+
+    public void setValido(int valido) {
+        this.valido = valido;
     }
 }

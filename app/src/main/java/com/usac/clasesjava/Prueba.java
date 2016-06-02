@@ -12,16 +12,14 @@ public class Prueba {
     public List<Respuesta> respuestas;
     public int experiencia;
     public int tipo;
-    public int correcto; /*id respuesta correcta*/
 
-    public Prueba(int id, int tema, String pregunta, List<Respuesta> respuestas, int experiencia, int tipo, int correcto ) {
+    public Prueba(int id, int tema, String pregunta, List<Respuesta> respuestas, int experiencia, int tipo ) {
         this.id = id;
         this.tema = tema;
         this.pregunta = pregunta;
         this.respuestas = respuestas;
         this.experiencia = experiencia;
         this.tipo = tipo;
-        this.correcto = correcto;
     }
 
     public Prueba(){}

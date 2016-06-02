@@ -351,8 +351,9 @@ public class ConexionBD extends SQLiteOpenHelper {
     public final static String KEY_RESP_ID = "_id";
     public final static String KEY_RESP_PRUEBA = "prueba";
     public final static String KEY_RESP_RESP = "respuesta";
+        public final static String KEY_RESP_VAL = "valido";
 
-    private static final String[] respuestas = new String[] { KEY_RESP_ID, KEY_RESP_PRUEBA, KEY_RESP_RESP};
+    private static final String[] respuestas = new String[] { KEY_RESP_ID, KEY_RESP_PRUEBA, KEY_RESP_RESP,KEY_RESP_VAL};
 
 
     public List<Respuesta> getRespuestas(int prueba) {
@@ -363,7 +364,8 @@ public class ConexionBD extends SQLiteOpenHelper {
                 respuestas_.add(new Respuesta(
                                 result.getInt(result.getColumnIndex(KEY_RESP_ID)),
                                 result.getInt(result.getColumnIndex(KEY_RESP_PRUEBA)),
-                                result.getString(result.getColumnIndex(KEY_RESP_RESP))
+                                result.getString(result.getColumnIndex(KEY_RESP_RESP)),
+                                result.getInt(result.getColumnIndex(KEY_RESP_VAL))
                         )
                 );
             } while(result.moveToNext());
@@ -377,10 +379,10 @@ public class ConexionBD extends SQLiteOpenHelper {
     public final static String KEY_PRU_PREG = "pregunta";
     public final static String KEY_PRU_EXP = "experiencia";
     public final static String KEY_PRU_TIPO = "tipo";
-    public final static String KEY_PRU_CORR = "correcto";
+
 
     private static final String[] pruebas = new String[] { KEY_PRU_ID, KEY_PRU_TEMA, KEY_PRU_PREG,
-                                            KEY_PRU_EXP, KEY_PRU_TIPO, KEY_PRU_CORR};
+                                            KEY_PRU_EXP, KEY_PRU_TIPO};
 
 
     public List<Prueba> getPruebas(int tema) {
@@ -394,8 +396,7 @@ public class ConexionBD extends SQLiteOpenHelper {
                                 result.getString(result.getColumnIndex(KEY_PRU_PREG)),
                                 getRespuestas(result.getInt(result.getColumnIndex(KEY_PRU_ID))),
                                 result.getInt(result.getColumnIndex(KEY_PRU_EXP)),
-                                result.getInt(result.getColumnIndex(KEY_PRU_TIPO)),
-                                result.getInt(result.getColumnIndex(KEY_PRU_CORR))
+                                result.getInt(result.getColumnIndex(KEY_PRU_TIPO))
                         )
                 );
             } while(result.moveToNext());
