@@ -1,6 +1,7 @@
 package com.usac.clasesjava;
 import android.app.ActionBar;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -50,35 +51,68 @@ public class TabModulo extends Fragment {
         RelativeLayout relativeLayout = (RelativeLayout) inflater.inflate(id, null, false);
 
         ImageButton imgButton = (ImageButton)relativeLayout.findViewById(R.id.imageButton);
+        imgButton.setImageResource(getIdImage(mod.getIdentificador()));
         imgButton.setTag(mod);
 
         imgButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Modulo aux = (Modulo)v.getTag();
-                Toast.makeText(getActivity(),"Hola",Toast.LENGTH_SHORT).show();
-                Bundle datos = new Bundle();
-                datos.putInt("modulo",aux.getIdentificador());
-                Intent intent = new Intent(getActivity(), Temas.class);
-                intent.putExtras(datos);
-                startActivity(intent);
+              //  if(Estatica.usuario_actual.getExperiencia()<aux.getExperiencia()){
+              //      Toast.makeText(getActivity(),"No tiene la experiencia suficiente",Toast.LENGTH_SHORT).show();
+             //   }else{
+                    Bundle datos = new Bundle();
+                    datos.putInt("modulo",aux.getIdentificador());
+                    Intent intent = new Intent(getActivity(), Temas.class);
+                    intent.putExtras(datos);
+                    startActivity(intent);
+              //  }
             }
         });
 
         TextView textView_titulo = (TextView) relativeLayout.findViewById(R.id.amiUser);
         textView_titulo.setText(mod.getNombre());
 
-        //TextView textView_desc = (TextView) relativeLayout.findViewById(R.id.modDesc);
-        //textView_desc.setText(mod.getDescripcion());
-
         TextView textView_temas = (TextView) relativeLayout.findViewById(R.id.modTemas);
-        textView_temas.setText("0/"+mod.getTemas());
+        textView_temas.setText(getModulosTerminados(mod)+"/"+mod.getTemas());
+
+
+        TextView textView_estado = (TextView) relativeLayout.findViewById(R.id.modEstado);
+        if(Estatica.usuario_actual.getExperiencia()<mod.getExperiencia()){
+            textView_estado.setText("Bloqueado");
+            textView_estado.setTextColor(Color.RED);
+        }
+
 
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ActionBar.LayoutParams.WRAP_CONTENT, ActionBar.LayoutParams.WRAP_CONTENT);
 
         params.topMargin = 15;
         relativeLayout.setLayoutParams(params);
         layout.addView(relativeLayout);
+    }
+
+    public int getIdImage(int imagen){
+        switch (imagen){
+            case 1: return R.drawable.learning;
+            case 2: return R.drawable.modulo_1;
+            case 3: return R.drawable.modulo_3;
+            default: return R.drawable.learning;
+        }
+    }
+
+
+    public int getModulosTerminados(Modulo modulo){
+        int temaTerminado = 0;
+
+        if(Estatica.usuario_actual.getModulo() == modulo.getIdentificador()){
+            temaTerminado = Estatica.usuario_actual.getTema();
+        }else if(Estatica.usuario_actual.getModulo()<modulo.getIdentificador()){
+            temaTerminado = 0;
+        }else if(Estatica.usuario_actual.getModulo() > modulo.getIdentificador()){
+            temaTerminado = modulo.getTemas();
+        }
+
+        return temaTerminado;
     }
 
 }

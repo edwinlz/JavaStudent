@@ -39,7 +39,11 @@
                 android:value="com.usac.javastudent.Principal" />
         </activity>
         <activity android:name=".Amigos" />
-        <activity android:name=".Contenido"></activity>
+        <activity android:name=".Contenido" />
+        <activity
+            android:name=".Preguntas"
+            android:label="@string/title_activity_preguntas"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

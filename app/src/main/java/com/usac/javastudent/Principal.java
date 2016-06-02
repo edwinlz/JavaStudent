@@ -144,23 +144,19 @@ public class Principal extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
+        if (id == R.id.nav_friends) {
             Intent m = new Intent(Principal.this, Amigos.class);
             Bundle infoUsuario = new Bundle();
             infoUsuario.putString("usuario", Estatica.username_actual);
             m.putExtras(infoUsuario);
             startActivity(m);
-        } else if (id == R.id.nav_gallery) {
-            Intent m = new Intent(Principal.this,Contenido.class);
-            startActivity(m);
+        } else if (id == R.id.nav_config) {
 
-        } else if (id == R.id.nav_slideshow) {
-            Estatica.datos.setearDatos("felipe",100,1,1,1,this);
-        } else if (id == R.id.nav_manage) {
+        } else if (id == R.id.nav_stats) {
 
         } else if (id == R.id.nav_share) {
 
-        } else if (id == R.id.nav_send) {
+        } else if (id == R.id.nav_close) {
             ConexionBD con = new ConexionBD(this);
             con.open();
             if(Estatica.usuario_actual != null)

@@ -67,6 +67,7 @@ public class Temas extends AppCompatActivity {
         int modulo_data = recibido.getInt("modulo");
 
         currentModulo = getModulo(modulo_data);
+
         lstTemas = getTemas(currentModulo.getIdentificador());
 
         TextView text_lstMod = (TextView)findViewById(R.id.lstemaMod);
@@ -105,11 +106,18 @@ public class Temas extends AppCompatActivity {
 
     public static Tema getTema(int id){
         Tema aux = new Tema();
+        for(int i = 0; i<lstTemas.size(); i++){
+            if(i+1 == id){
+                aux= lstTemas.get(i);
+            }
+        }
+        /*
         for(Tema t:lstTemas){
             if(t.getIdenficador() == id){
                 aux= t;
             }
         }
+        */
         return aux;
     }
 

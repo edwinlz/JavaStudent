@@ -201,7 +201,7 @@ public class Registro extends AppCompatActivity {
             bd.open();
             if (bd.getUsuario(username) == null) {
                 /*El usuario se guardara localmente*/
-                bd.insertUsuario(username, email, password, name, 0, 0, 0, 1, 1, avatarUser);
+                bd.insertUsuario(username, email, password, name, 0, 0, 0, 1, 0, avatarUser);
             }
             bd.close(); //cerrar conexion bd
             finish();
@@ -245,7 +245,7 @@ public class Registro extends AppCompatActivity {
             request.addProperty("experiencia",0);
             request.addProperty("nivel",0);
             request.addProperty("modulo",1);
-            request.addProperty("tema",1);
+            request.addProperty("tema",0);
             request.addProperty("imagen",1);//cambiar por el numero de imagen que se selecciono
             envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
             envelope.dotNet = true;
