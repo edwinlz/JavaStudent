@@ -147,6 +147,10 @@ public class Amigos extends AppCompatActivity {
         switch (imagen){
             case 1: return R.drawable.user_boy_3;
             case 2: return R.drawable.user_man_1;
+            case 3: return R.drawable.user_man_2;
+            case 4: return R.drawable.user_girl_1;
+            case 5: return R.drawable.user_girl_2;
+            case 6: return R.drawable.user_girl_3;
             default: return R.drawable.user_boy_3;
         }
     }

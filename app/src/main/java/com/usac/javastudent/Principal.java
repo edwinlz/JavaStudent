@@ -151,7 +151,8 @@ public class Principal extends AppCompatActivity
             m.putExtras(infoUsuario);
             startActivity(m);
         } else if (id == R.id.nav_config) {
-
+            Intent m = new Intent(Principal.this, CambioPerfil.class);
+            startActivity(m);
         } else if (id == R.id.nav_stats) {
 
         } else if (id == R.id.nav_share) {

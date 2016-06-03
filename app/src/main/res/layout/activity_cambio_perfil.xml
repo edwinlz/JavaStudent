@@ -7,7 +7,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.usac.javastudent.Login">
+    tools:context="com.usac.javastudent.CambioPerfil">
 
     <LinearLayout
         android:orientation="vertical"
@@ -19,14 +19,14 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="@string/action_registro"
-            android:id="@+id/textView2"
+            android:id="@+id/textView2Perfil"
             android:layout_gravity="center_horizontal"
             android:typeface="monospace" />
 
         <ScrollView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/scrollView" >
+            android:id="@+id/scrollViewPerfil" >
 
             <LinearLayout
                 android:orientation="vertical"
@@ -36,7 +36,7 @@
                 <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/view4"
+                    android:id="@+id/viewPerfil"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginBottom="8dp">
                     <EditText
@@ -44,23 +44,7 @@
                         android:layout_height="wrap_content"
                         android:inputType="textEmailAddress|textAutoComplete"
                         android:ems="10"
-                        android:id="@+id/username_reg"
-                        android:singleLine="true"
-                        android:hint="Username" />
-                </android.support.design.widget.TextInputLayout>
-
-                <android.support.design.widget.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/view"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginBottom="8dp">
-                    <EditText
-                        android:layout_width="367dp"
-                        android:layout_height="wrap_content"
-                        android:inputType="textEmailAddress|textAutoComplete"
-                        android:ems="10"
-                        android:id="@+id/email_reg"
+                        android:id="@+id/email_regPerfil"
                         android:singleLine="true"
                         android:hint="Correo Electrónico" />
                 </android.support.design.widget.TextInputLayout>
@@ -69,28 +53,28 @@
                 <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/view2"
+                    android:id="@+id/view2Perfil"
                     android:layout_marginBottom="8dp">
                     <EditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="textPersonName"
                         android:ems="10"
-                        android:id="@+id/name_reg"
+                        android:id="@+id/name_regPerfil"
                         android:hint="Nombre" />
                 </android.support.design.widget.TextInputLayout>
 
                 <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/view3"
+                    android:id="@+id/view3Perfil"
                     android:layout_marginBottom="16dp">
                     <EditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="textPassword"
                         android:ems="10"
-                        android:id="@+id/pass_reg"
+                        android:id="@+id/pass_regPerfil"
                         android:hint="Contraseña" />
                 </android.support.design.widget.TextInputLayout>
 
@@ -98,13 +82,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Avatar"
-                    android:id="@+id/textView6"
+                    android:id="@+id/textView6Perfil"
                     android:layout_marginBottom="16dp" />
 
                 <HorizontalScrollView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/horizontalScrollView" >
+                    android:id="@+id/horizontalScrollViewPerfil" >
 
                     <LinearLayout
                         android:orientation="horizontal"
@@ -120,13 +104,13 @@
                             <RadioButton
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:id="@+id/radioAvatar1"
+                                android:id="@+id/radioAvatar1Perfil"
                                 android:layout_gravity="center_horizontal" />
 
                             <ImageView
                                 android:layout_width="81dp"
                                 android:layout_height="119dp"
-                                android:id="@+id/imageView6"
+                                android:id="@+id/imageView6Perfil"
                                 android:src="@drawable/user_boy_3" />
                         </LinearLayout>
 
@@ -139,13 +123,13 @@
                             <RadioButton
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:id="@+id/radioAvatar2"
+                                android:id="@+id/radioAvatar2Perfil"
                                 android:layout_gravity="center_horizontal" />
 
                             <ImageView
                                 android:layout_width="81dp"
                                 android:layout_height="119dp"
-                                android:id="@+id/imageView5"
+                                android:id="@+id/imageView5Perfil"
                                 android:src="@drawable/user_man_1" />
                         </LinearLayout>
 
@@ -158,13 +142,13 @@
                             <RadioButton
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:id="@+id/radioAvatar3"
+                                android:id="@+id/radioAvatar3Perfil"
                                 android:layout_gravity="center_horizontal" />
 
                             <ImageView
                                 android:layout_width="81dp"
                                 android:layout_height="119dp"
-                                android:id="@+id/imageView8"
+                                android:id="@+id/imageView8Perfil"
                                 android:src="@drawable/user_man_2" />
                         </LinearLayout>
 
@@ -177,13 +161,13 @@
                             <RadioButton
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:id="@+id/radioAvatar4"
+                                android:id="@+id/radioAvatar4Perfil"
                                 android:layout_gravity="center_horizontal" />
 
                             <ImageView
                                 android:layout_width="81dp"
                                 android:layout_height="119dp"
-                                android:id="@+id/imageView9"
+                                android:id="@+id/imageView9Perfil"
                                 android:src="@drawable/user_girl_1" />
                         </LinearLayout>
 
@@ -196,13 +180,13 @@
                             <RadioButton
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:id="@+id/radioAvatar5"
+                                android:id="@+id/radioAvatar5Perfil"
                                 android:layout_gravity="center_horizontal" />
 
                             <ImageView
                                 android:layout_width="81dp"
                                 android:layout_height="119dp"
-                                android:id="@+id/imageView7"
+                                android:id="@+id/imageView7Perfil"
                                 android:src="@drawable/user_girl_2" />
                         </LinearLayout>
 
@@ -215,13 +199,13 @@
                             <RadioButton
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:id="@+id/radioAvatar6"
+                                android:id="@+id/radioAvatar6Perfil"
                                 android:layout_gravity="center_horizontal" />
 
                             <ImageView
                                 android:layout_width="81dp"
                                 android:layout_height="119dp"
-                                android:id="@+id/imageView3"
+                                android:id="@+id/imageView3Perfil"
                                 android:src="@drawable/user_girl_3"
                                 android:scaleType="fitCenter" />
                         </LinearLayout>
@@ -231,17 +215,17 @@
                 <Button
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Registrar"
-                    android:id="@+id/button"
+                    android:text="Modificar"
+                    android:id="@+id/buttonPerfil"
                     android:layout_marginTop="16dp"
-                    android:onClick="registar" />
+                    android:onClick="modificar" />
 
                 <Button
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/action_cancelar"
-                    android:id="@+id/button2"
+                    android:text="Salir"
                     android:layout_marginTop="16dp"
+                    android:id="@+id/button2Perfil"
                     android:onClick="cancelar" />
 
             </LinearLayout>
