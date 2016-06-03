@@ -37,6 +37,7 @@ public class Contenido extends AppCompatActivity {
 
         ImageButton button = (ImageButton)findViewById(R.id.verificar);
         button.setTag(currentTema);
+
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -1,5 +1,6 @@
 package com.usac.javastudent;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
@@ -15,7 +16,7 @@ import com.usac.clasesjava.Estatica;
 public class Resultados extends AppCompatActivity {
 
     public boolean aprobado = true;
-
+    public Context contexto;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,6 +31,7 @@ public class Resultados extends AppCompatActivity {
         TextView experiencia = (TextView)findViewById(R.id.expGanada);
         experiencia.setText(Estatica.exp_ganada + " EXP");
 
+        contexto = this;
 
         TextView feed = (TextView)findViewById(R.id.recResultado);
         if(Estatica.res_totales > Estatica.res_correctas){
@@ -53,10 +55,10 @@ public class Resultados extends AppCompatActivity {
                     int tema_actual = Estatica.tema_actual;
                     Estatica.usuario_actual.setTema(tema_actual);
 
-                    Estatica.datos.setearDatos(Estatica.username_actual,exp_actual,Estatica.modulo_actual,Estatica.modulo_actual,tema_actual,getApplicationContext());
+                    Estatica.datos.setearDatos(Estatica.username_actual,exp_actual,Estatica.modulo_actual,Estatica.modulo_actual,tema_actual,contexto);
                     setearDatosLocal(exp_actual,Estatica.modulo_actual,tema_actual);
                 }else{
-                    Estatica.datos.setearDatos(Estatica.username_actual,exp_actual,Estatica.modulo_actual,Estatica.modulo_actual,Estatica.tema_actual,getApplicationContext());
+                    Estatica.datos.setearDatos(Estatica.username_actual,exp_actual,Estatica.modulo_actual,Estatica.modulo_actual,Estatica.tema_actual,contexto);
                     setearDatosLocal(exp_actual,Estatica.modulo_actual,Estatica.tema_actual);
                 }
                 Estatica.exp_ganada =0;

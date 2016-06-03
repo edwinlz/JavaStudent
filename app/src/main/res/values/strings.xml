@@ -25,4 +25,5 @@
     <string name="title_activity_prueba">Prueba</string>
     <string name="title_activity_preguntas">Preguntas</string>
     <string name="title_activity_cambio_perfil">CambioPerfil</string>
+    <string name="title_activity_estadisticas">Estadisticas</string>
 </resources>
