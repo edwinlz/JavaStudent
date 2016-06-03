@@ -87,7 +87,7 @@ public class Principal extends AppCompatActivity
         TabLayout tabLayout = (TabLayout)findViewById(R.id.tab_layout);
         tabLayout.addTab(tabLayout.newTab().setText("Modulos"));
         tabLayout.addTab(tabLayout.newTab().setText("Amigos"));
-        tabLayout.setTabGravity(tabLayout.GRAVITY_FILL);
+        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
         final PagerAdapter adapter = new PagerAdapter
