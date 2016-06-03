@@ -11,10 +11,8 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.usac.clasesjava.ConexionBD;
-import com.usac.clasesjava.Prueba;
 import com.usac.clasesjava.Tema;
 
 public class Contenido extends AppCompatActivity {
@@ -37,7 +35,7 @@ public class Contenido extends AppCompatActivity {
         TextView descripcion = (TextView)findViewById(R.id.conteDesc);
         descripcion.setText(currentTema.getDescripcion());
 
-        ImageButton button = (ImageButton)findViewById(R.id.imageButton4);
+        ImageButton button = (ImageButton)findViewById(R.id.verificar);
         button.setTag(currentTema);
         button.setOnClickListener(new View.OnClickListener() {
             @Override

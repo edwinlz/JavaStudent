@@ -4,8 +4,6 @@ import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
@@ -27,12 +25,10 @@ import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.usac.clasesjava.ConexionBD;
-import com.usac.clasesjava.Modulo;
+import com.usac.clasesjava.Estatica;
 import com.usac.clasesjava.Prueba;
-import com.usac.clasesjava.Tema;
 
 import java.util.ArrayList;
 
@@ -99,7 +95,23 @@ public class Preguntas extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            return true;
+            Estatica.res_totales = lstPruebas.size();
+            if(Estatica.res_totales == (Estatica.res_correctas+Estatica.res_fallidas)){
+                //setTotales(prueba.respuestas.size());
+                Intent resultados = new Intent(this, Resultados.class);
+                startActivity(resultados);
+            }else{
+                AlertDialog.Builder alert = new AlertDialog.Builder(this);
+                alert.setTitle("Feedback");
+                alert.setMessage("Debe verificar todas las preguntas");
+                alert.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+
+                    }
+                });
+
+                alert.show();
+            }
         }
 
         return super.onOptionsItemSelected(item);
@@ -147,7 +159,7 @@ public class Preguntas extends AppCompatActivity {
             return rootView;
         }
 
-        public void setPrueba(Prueba prueba,int num){
+        public void setPrueba(final Prueba prueba, int num){
 
             LayoutInflater inflater = LayoutInflater.from(getActivity());
             if(prueba.tipo == 1){
@@ -165,6 +177,9 @@ public class Preguntas extends AppCompatActivity {
 
                 final ImageButton button = (ImageButton)relativeLayout.findViewById(R.id.quizEnviar);
                 button.setTag(prueba);
+
+                final TextView textView_button = (TextView) relativeLayout.findViewById(R.id.verificarTxt);
+
                 button.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -174,12 +189,16 @@ public class Preguntas extends AppCompatActivity {
                             getFeedback("La respuesta es correcta +"+aux.experiencia+"EXP");
                             button.setEnabled(false);
                             button.setImageResource(R.drawable.minus);
+                            addCorrecta();
+                            addExp(aux.experiencia);
                         }else{
                             //Toast.makeText(getActivity(), "La respuesta es incorrecta", Toast.LENGTH_LONG).show();
                             getFeedback("La respuesta es incorrecta");
                             button.setEnabled(false);
                             button.setImageResource(R.drawable.minus);
+                            addFallida();
                         }
+                        textView_button.setText("Verificada");
                     }
                 });
 
@@ -214,8 +233,11 @@ public class Preguntas extends AppCompatActivity {
                 final RadioButton opcion3 = (RadioButton)relativeLayout.findViewById(R.id.radioButton3);
                 opcion3.setText(prueba.respuestas.get(2).getRespuesta());
 
-                final ImageButton button = (ImageButton)relativeLayout.findViewById(R.id.imageButton4);
+                final ImageButton button = (ImageButton)relativeLayout.findViewById(R.id.verificar);
                 button.setTag(prueba);
+
+                final TextView textView_button = (TextView) relativeLayout.findViewById(R.id.verificarTxt);
+
 
                 button.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -228,36 +250,50 @@ public class Preguntas extends AppCompatActivity {
                                 getFeedback("La respuesta es correcta +"+aux.experiencia+"EXP");
                                 button.setEnabled(false);
                                 button.setImageResource(R.drawable.minus);
+                                addCorrecta();
+                                addExp(aux.experiencia);
                             }else{
                                 //Toast.makeText(getActivity(), "La respuesta es incorrecta", Toast.LENGTH_LONG).show();
                                 getFeedback("La respuesta es incorrecta");
                                 button.setEnabled(false);
                                 button.setImageResource(R.drawable.minus);
+                                addFallida();
                             }
+                            textView_button.setText("Verificada");
                         }else if(opcion2.isChecked()){
                             if(esVerdadera(2,aux)){
                                 //Toast.makeText(getActivity(), "Ha ganado "+ aux.experiencia +" puntos de experiencia", Toast.LENGTH_LONG).show();
                                 getFeedback("La respuesta es correcta +"+aux.experiencia+"EXP");
                                 button.setEnabled(false);
                                 button.setImageResource(R.drawable.minus);
+                                addCorrecta();
+                                addExp(aux.experiencia);
                             }else{
                                 //Toast.makeText(getActivity(), "La respuesta es incorrecta", Toast.LENGTH_LONG).show();
                                 getFeedback("La respuesta es incorrecta");
                                 button.setEnabled(false);
                                 button.setImageResource(R.drawable.minus);
+                                addFallida();
                             }
+                            textView_button.setText("Verificada");
                         }else if (opcion3.isChecked()){
                             if(esVerdadera(3,aux)){
                                 //Toast.makeText(getActivity(), "Ha ganado "+ aux.experiencia +" puntos de experiencia", Toast.LENGTH_LONG).show();
                                 getFeedback("La respuesta es correcta +"+aux.experiencia+"EXP");
                                 button.setEnabled(false);
                                 button.setImageResource(R.drawable.minus);
+                                addCorrecta();
+                                addExp(aux.experiencia);
                             }else{
                                 //Toast.makeText(getActivity(), "La respuesta es incorrecta", Toast.LENGTH_LONG).show();
                                 getFeedback("La respuesta es incorrecta");
                                 button.setEnabled(false);
                                 button.setImageResource(R.drawable.minus);
+                                addFallida();
                             }
+                            textView_button.setText("Verificada");
+                        }else{
+                            getFeedback("Debe seleccionar una respuesta");
                         }
                     }
                 });
@@ -289,8 +325,10 @@ public class Preguntas extends AppCompatActivity {
                 final CheckBox opcion3 = (CheckBox) relativeLayout.findViewById(R.id.checkBox3);
                 opcion3.setText(prueba.respuestas.get(2).getRespuesta());
 
-                final ImageButton button = (ImageButton)relativeLayout.findViewById(R.id.imageButton4);
+                final ImageButton button = (ImageButton)relativeLayout.findViewById(R.id.verificar);
                 button.setTag(prueba);
+
+                final TextView textView_button = (TextView) relativeLayout.findViewById(R.id.verificarTxt);
 
                 button.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -298,6 +336,7 @@ public class Preguntas extends AppCompatActivity {
                         Prueba aux = (Prueba)v.getTag();
                         int respuestaUser = 1;
                         boolean cancel = false;
+
                         if(opcion1.isChecked()){
                             if(esVerdadera(1,aux)){
                              cancel = true;
@@ -319,12 +358,16 @@ public class Preguntas extends AppCompatActivity {
                             getFeedback("La respuesta es correcta +"+aux.experiencia+"EXP");
                             button.setEnabled(false);
                             button.setImageResource(R.drawable.minus);
+                            addCorrecta();
+                            addExp(aux.experiencia);
                         }else{
                             //Toast.makeText(getActivity(), "La respuesta es incorrecta", Toast.LENGTH_LONG).show();
                             getFeedback("La respuesta es incorrecta");
                             button.setEnabled(false);
                             button.setImageResource(R.drawable.minus);
+                            addFallida();
                         }
+                        textView_button.setText("Verificada");
                     }
                 });
 
@@ -337,10 +380,57 @@ public class Preguntas extends AppCompatActivity {
 
             }
 
+            if(num == lstPruebas.size()){
+                int id = R.layout.boton_layout;
+                RelativeLayout relativeLayout = (RelativeLayout) inflater.inflate(id, null, false);
+                final ImageButton button = (ImageButton)relativeLayout.findViewById(R.id.imageButton);
+                button.setTag(prueba);
 
+                button.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                            Estatica.res_totales = lstPruebas.size();
+                            if(Estatica.res_totales == (Estatica.res_correctas+Estatica.res_fallidas)){
+                                //setTotales(prueba.respuestas.size());
+                                Intent resultados = new Intent(getActivity(), Resultados.class);
+                                startActivity(resultados);
+                            }else{
+                                getFeedback("Debe verificar todas las preguntas");
+                            }
+
+                    }
+                });
+
+                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ActionBar.LayoutParams.WRAP_CONTENT, ActionBar.LayoutParams.WRAP_CONTENT);
+
+                params.topMargin = 15;
+                relativeLayout.setLayoutParams(params);
+
+                layout.addView(relativeLayout);
+            }
 
         }
 
+
+
+        public void addExp(int add){
+            Estatica.exp_ganada = Estatica.exp_ganada + add ;
+        }
+
+        public void addCorrecta(){
+            Estatica.res_correctas = Estatica.res_correctas + 1;
+        }
+
+        public void addFallida(){
+            Estatica.res_fallidas = Estatica.res_fallidas + 1;
+        }
+
+        /*
+        public void setTotales(int totales){
+            Estatica.res_totales = totales;
+        }
+*/
         public void getFeedback(String mensaje){
             AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
             alert.setTitle("Feedback");
@@ -356,11 +446,10 @@ public class Preguntas extends AppCompatActivity {
     }
 
 
-
     public static boolean esVerdadera(int rUser, Prueba prueba){
         for(int a = 0; a<prueba.respuestas.size(); a++){
             if(prueba.respuestas.get(a).getValido()==1){
-                if(a+1==rUser){
+                if(a + 1==rUser){
                     return true;
                 }
             }

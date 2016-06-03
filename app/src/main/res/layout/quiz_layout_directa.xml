@@ -76,7 +76,7 @@
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceSmall"
                     android:text="Verificar"
-                    android:id="@+id/textView4"
+                    android:id="@+id/verificarTxt"
                     android:layout_gravity="center_horizontal" />
             </LinearLayout>
 

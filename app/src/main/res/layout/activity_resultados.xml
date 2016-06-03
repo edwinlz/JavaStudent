@@ -9,4 +9,95 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.usac.javastudent.Resultados">
 
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="122dp"
+            android:layout_marginBottom="10dp"
+            android:background="@android:color/white">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Resultados"
+                android:id="@+id/textView9"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:typeface="monospace"
+                android:textStyle="bold"
+                android:layout_gravity="center_horizontal" />
+
+            <ImageView
+                android:layout_width="90dp"
+                android:layout_height="90dp"
+                android:id="@+id/imageView"
+                android:src="@drawable/laptop"
+                android:layout_marginBottom="313dp"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_gravity="center_horizontal"
+                android:scaleType="fitCenter" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="16dp"
+            android:background="@android:color/white">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Total de correctas: 1"
+                android:id="@+id/resCorrectas"
+                android:layout_marginBottom="8dp"
+                android:typeface="monospace" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Total de fallidas: 1"
+                android:id="@+id/resFallidas"
+                android:layout_marginBottom="16dp"
+                android:typeface="monospace" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="10 EXP"
+                android:id="@+id/expGanada"
+                android:layout_gravity="center_horizontal"
+                android:typeface="monospace"
+                android:textColor="@android:color/holo_green_light"
+                android:layout_marginBottom="20dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="Completo"
+                android:id="@+id/recResultado"
+                android:typeface="monospace"
+                android:textColor="@android:color/holo_blue_dark" />
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Terminar"
+                android:id="@+id/buttonResultados"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true"
+                android:typeface="monospace" />
+        </LinearLayout>
+    </LinearLayout>
+
 </RelativeLayout>

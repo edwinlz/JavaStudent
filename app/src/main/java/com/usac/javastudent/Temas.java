@@ -223,6 +223,7 @@ public class Temas extends AppCompatActivity {
                     }else{
                         Bundle datos = new Bundle();
                         datos.putInt("tema",aux.getIdenficador());
+                        Estatica.tema_actual = aux.getIdenficador();
                         Intent intent = new Intent(getActivity(), Contenido.class);
                         intent.putExtras(datos);
                         startActivity(intent);

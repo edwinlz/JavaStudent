@@ -64,6 +64,7 @@ public class TabModulo extends Fragment {
 
                     Bundle datos = new Bundle();
                     datos.putInt("modulo",aux.getIdentificador());
+                    Estatica.modulo_actual = aux.getIdentificador();
                     Intent intent = new Intent(getActivity(), Temas.class);
                     intent.putExtras(datos);
                     startActivity(intent);

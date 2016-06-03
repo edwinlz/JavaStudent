@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="15dp">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:padding="8dp">
+
+        <ImageButton
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:id="@+id/imageButton"
+            android:src="@drawable/success"
+            android:scaleType="fitCenter"
+            android:background="@drawable/ic_shape_circle"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="right" />
+
+        <TextView
+            android:id="@+id/nameTema"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Enviar"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="@android:color/black"
+            android:layout_alignWithParentIfMissing="false"
+            android:layout_below="@+id/imageButton"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="right"
+            android:typeface="monospace"
+            android:ellipsize="none"
+            android:singleLine="true"
+            android:textAlignment="gravity"
+            android:layout_marginBottom="30dp" />
+
+    </LinearLayout>
+
+</RelativeLayout>

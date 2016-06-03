@@ -70,7 +70,7 @@
                 <ImageButton
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:id="@+id/imageButton4"
+                    android:id="@+id/verificar"
                     android:src="@drawable/fast_forward"
                     android:scaleType="fitCenter"
                     android:layout_centerHorizontal="true"
@@ -83,7 +83,7 @@
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceSmall"
                     android:text="Verificar"
-                    android:id="@+id/textView4"
+                    android:id="@+id/verificarTxt"
                     android:layout_gravity="center_horizontal" />
             </LinearLayout>
 
@@ -95,7 +95,7 @@
                 <ImageButton
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:id="@+id/imageButton"
+                    android:id="@+id/quizCancelar"
                     android:src="@drawable/error"
                     android:scaleType="fitCenter"
                     android:layout_centerHorizontal="true"

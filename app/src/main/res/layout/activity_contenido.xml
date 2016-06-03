@@ -63,7 +63,7 @@
             <ImageButton
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:id="@+id/imageButton4"
+                android:id="@+id/verificar"
                 android:src="@drawable/list"
                 android:scaleType="fitCenter"
                 android:layout_gravity="center_horizontal"
@@ -79,9 +79,9 @@
                 android:text="Examen"
                 android:id="@+id/textView"
                 android:layout_alignWithParentIfMissing="true"
-                android:layout_below="@+id/imageButton4"
-                android:layout_alignRight="@+id/imageButton4"
-                android:layout_alignEnd="@+id/imageButton4" />
+                android:layout_below="@+id/verificar"
+                android:layout_alignRight="@+id/verificar"
+                android:layout_alignEnd="@+id/verificar" />
         </RelativeLayout>
 
         <LinearLayout
