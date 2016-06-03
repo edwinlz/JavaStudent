@@ -241,6 +241,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/action_cancelar"
                     android:id="@+id/button2"
+                    android:layout_marginTop="16dp"
                     android:onClick="cancelar" />
 
             </LinearLayout>

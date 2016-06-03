@@ -243,10 +243,10 @@ public class Registro extends AppCompatActivity {
             request.addProperty("correo",correo_view.getText().toString());
             request.addProperty("password",pass_view.getText().toString());
             request.addProperty("experiencia",0);
-            request.addProperty("nivel",0);
+            request.addProperty("nivel",1);
             request.addProperty("modulo",1);
-            request.addProperty("tema",0);
-            request.addProperty("imagen",1);//cambiar por el numero de imagen que se selecciono
+            request.addProperty("tema",1);
+            request.addProperty("imagen",avatarUser);//cambiar por el numero de imagen que se selecciono
             envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
             envelope.dotNet = true;
             envelope.setOutputSoapObject(request);

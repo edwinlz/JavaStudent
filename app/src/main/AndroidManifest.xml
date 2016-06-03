@@ -44,7 +44,8 @@
             android:name=".Preguntas"
             android:label="@string/title_activity_preguntas"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".Resultados"></activity>
+        <activity android:name=".Resultados" />
+        <activity android:name=".CambioPerfil"></activity>
     </application>
 
 </manifest>
