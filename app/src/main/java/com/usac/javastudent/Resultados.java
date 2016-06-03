@@ -66,7 +66,6 @@ public class Resultados extends AppCompatActivity {
                 //nuevo.putExtras(datos);
                 startActivity(nuevo);
 
-
             }
         });
 
